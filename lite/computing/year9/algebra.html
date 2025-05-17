@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 9 Algebraic Techniques | Mathematics</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../../styles.css" rel="stylesheet">
+    <style>
+        /* Topic page specific styles */
+        .math-formula {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: "Cambria Math", "Times New Roman", serif;
+            margin: 1rem 0;
+        }
+        
+        .example-box {
+            border-left: 4px solid #6A1B9A;
+            background-color: rgba(106, 27, 154, 0.05);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .example-box h5 {
+            color: #6A1B9A;
+        }
+        
+        .practice-question {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .topic-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .key-point {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #FFC107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .chapter-navigation {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .common-mistake {
+            background-color: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid #F44336;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .formula-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        .formula-table th {
+            background-color: #6A1B9A;
+            color: white;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        
+        .formula-table td {
+            padding: 0.75rem;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .formula-table tr:nth-child(even) {
+            background-color: rgba(106, 27, 154, 0.05);
+        }
+        
+        .step-by-step {
+            counter-reset: step-counter;
+            margin-left: 0;
+            padding-left: 0;
+            list-style-type: none;
+        }
+        
+        .step-by-step li {
+            counter-increment: step-counter;
+            margin-bottom: 1rem;
+            padding-left: 2.5rem;
+            position: relative;
+        }
+        
+        .step-by-step li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1.8rem;
+            height: 1.8rem;
+            background-color: #6A1B9A;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar">
+            <div class="sidebar-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Navigation</h4>
+                <button id="sidebar-close" class="sidebar-toggle d-md-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="p-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="../../index.html" class="nav-link">Home</a>
+                    </li>
+                    
+                    <!-- Maths Section -->
+                    <li class="nav-item">
+                        <a href="#mathsSubmenu" data-bs-toggle="collapse" class="nav-link d-flex justify-content-between align-items-center">
+                            <span>Maths</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                        <ul class="collapse nav flex-column submenu" id="mathsSubmenu">
+                            <li class="nav-item">
+                                <a href="../year7/index.html" class="nav-link">Year 7</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../year8/index.html" class="nav-link">Year 8</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../year9/index.html" class="nav-link">Year 9</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../year10/index.html" class="nav-link">Year 10</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../year11/index.html" class="nav-link">Year 11</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../year12/index.html" class="nav-link">Year 12</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Computing Section -->
+                    <li class="nav-item">
+                        <a href="#computingSubmenu" data-bs-toggle="collapse" class="nav-link d-flex justify-content-between align-items-center">
+                            <span>Computing</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                        <ul class="collapse nav flex-column submenu" id="computingSubmenu">
+                            <li class="nav-item">
+                                <a href="../../computing/year7/index.html" class="nav-link">Year 7</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../computing/year8/index.html" class="nav-link">Year 8</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../computing/year9/index.html" class="nav-link">Year 9</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../computing/year10/index.html" class="nav-link">Year 10</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../computing/year11/index.html" class="nav-link">Year 11</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../computing/year12/index.html" class="nav-link">Year 12</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Toggle button for mobile -->
+        <div class="position-fixed top-0 start-0 p-3 d-md-none" style="z-index: 5;">
+            <button id="sidebar-toggle" class="btn btn-purple">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+        
+        <!-- Page Content -->
+        <div id="content-wrapper" class="content-wrapper flex-grow-1 p-4">
+            <!-- Topic Breadcrumb -->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="index.html">Year 9 Mathematics</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Algebraic Techniques</li>
+                </ol>
+            </nav>
+            
+            <!-- Topic Header -->
+            <div class="mb-5">
+                <h1 class="display-5 mb-3">Algebraic Techniques</h1>
+                <p class="lead">Master algebraic expressions, equations, and learn to solve linear equations and inequalities.</p>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-purple">Year 9</span>
+                    <span class="badge bg-danger">New Content</span>
+                </div>
+            </div>
+            
+            <!-- Learning Objectives -->
+            <div class="card mb-4">
+                <div class="card-header bg-purple text-white">
+                    <h3 class="mb-0">Learning Objectives</h3>
+                </div>
+                <div class="card-body">
+                    <p>After completing this topic, you should be able to:</p>
+                    <ul>
+                        <li>Simplify algebraic expressions by collecting like terms</li>
+                        <li>Expand and factorize algebraic expressions</li>
+                        <li>Solve linear equations with variables on both sides</li>
+                        <li>Understand and solve linear inequalities</li>
+                        <li>Solve word problems using algebraic techniques</li>
+                        <li>Graph linear equations on the coordinate plane</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Introduction Section -->
+            <section class="mb-5">
+                <h2>Introduction to Algebraic Techniques</h2>
+                
+                <p>Algebra is the branch of mathematics that uses symbols (usually letters) to represent numbers and quantities in formulas and equations. It allows us to solve problems by working with these symbols rather than specific numbers.</p>
+                
+                <div class="row">
+                    <div class="col-md-7">
+                        <p>In Year 9, we build on your previous algebraic knowledge and develop more advanced techniques, including:</p>
+                        <ul>
+                            <li>Working with more complex expressions</li>
+                            <li>Solving equations with variables on both sides</li>
+                            <li>Understanding and solving inequalities</li>
+                            <li>Representing linear relationships graphically</li>
+                        </ul>
+                        <p>These skills are essential for many real-world applications, from calculating distances and costs to analyzing data and making predictions.</p>
+                    </div>
+                    <div class="col-md-5">
+                        <img src="/api/placeholder/400/300" alt="Student solving algebra problems" class="topic-image">
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    <strong>Key Concept:</strong> Algebra allows us to work with unknown quantities and discover relationships between different variables.
+                </div>
+            </section>
+            
+            <!-- Simplifying Expressions Section -->
+            <section class="mb-5">
+                <h2>Simplifying Algebraic Expressions</h2>
+                
+                <p>An algebraic expression is a combination of variables, numbers, and operations. Simplifying expressions makes them easier to work with.</p>
+                
+                <h4 class="mt-4">Collecting Like Terms</h4>
+                <p>"Like terms" are terms that contain the same variables raised to the same powers. We can add or subtract like terms to simplify an expression.</p>
+                
+                <div class="math-formula">
+                    3x + 4y + 2x - y = (3x + 2x) + (4y - y) = 5x + 3y
+                </div>
+                
+                <div class="example-box">
+                    <h5>Example 1: Simplifying by Collecting Like Terms</h5>
+                    <p><strong>Simplify:</strong> 2a + 5b - 3a + 2b + 4</p>
+                    
+                    <p><strong>Solution:</strong></p>
+                    <div class="math-formula">
+                        2a + 5b - 3a + 2b + 4<br>
+                        = (2a - 3a) + (5b + 2b) + 4<br>
+                        = -1a + 7b + 4<br>
+                        = -a + 7b + 4
+                    </div>
+                </div>
+                
+                <h4 class="mt-4">Expanding Expressions</h4>
+                <p>Expanding involves removing brackets by multiplying each term inside the bracket by the term outside.</p>
+                
+                <div class="math-formula">
+                    3(2x + 4) = 3 × 2x + 3 × 4 = 6x + 12
+                </div>
+                
+                <div class="example-box">
+                    <h5>Example 2: Expanding Expressions</h5>
+                    <p><strong>Expand:</strong> 5(3x - 2y + 1)</p>
+                    
+                    <p><strong>Solution:</strong></p>
+                    <div class="math-formula">
+                        5(3x - 2y + 1)<br>
+                        = 5 × 3x - 5 × 2y + 5 × 1<br>
+                        = 15x - 10y + 5
+                    </div>
+                </div>
+                
+                <div class="common-mistake">
+                    <strong>Common Mistake:</strong> When expanding expressions like 2(x + 3), some students only multiply the first term by the number outside the bracket: 2(x + 3) ≠ 2x + 3. Remember to multiply <em>every</em> term inside the bracket: 2(x + 3) = 2x + 6.
+                </div>
+            </section>
+            
+            <!-- Factorizing Section -->
+            <section class="mb-5">
+                <h2>Factorizing Expressions</h2>
+                
+                <p>Factorizing is the reverse of expanding. It involves finding the common factors in an expression and writing it in the form of a product.</p>
+                
+                <div class="math-formula">
+                    6x + 9 = 3(2x + 3)
+                </div>
+                
+                <p>To factorize an expression:</p>
+                <ol class="step-by-step">
+                    <li>Find the highest common factor (HCF) of all terms</li>
+                    <li>Divide each term by the HCF</li>
+                    <li>Write the expression as HCF × (result of step 2)</li>
+                </ol>
+                
+                <div class="example-box">
+                    <h5>Example 3: Factorizing Expressions</h5>
+                    <p><strong>Factorize:</strong> 12x² - 18x</p>
+                    
+                    <p><strong>Solution:</strong></p>
+                    <ol>
+                        <li>Find the HCF: 12x² = 12 × x² and 18x = 18 × x. The HCF is 6x.</li>
+                        <li>Divide each term by the HCF:
+                            <div class="math-formula">
+                                12x² ÷ 6x = 2x<br>
+                                18x ÷ 6x = 3
+                            </div>
+                        </li>
+                        <li>Write the expression in factorized form:
+                            <div class="math-formula">
+                                12x² - 18x = 6x(2x - 3)
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+            
+            <!-- Linear Equations Section -->
+            <section class="mb-5">
+                <h2>Solving Linear Equations</h2>
+                
+                <p>A linear equation is an equation where the variable has a power of 1. In Year 9, we learn to solve equations with variables on both sides.</p>
+                
+                <div class="key-point">
+                    <strong>Key Concept:</strong> When solving equations, what you do to one side, you must do to the other side to keep the equation balanced.
+                </div>
+                
+                <h4 class="mt-4">Steps for Solving Linear Equations</h4>
+                <ol class="step-by-step">
+                    <li>Expand any brackets</li>
+                    <li>Collect like terms on each side</li>
+                    <li>Get all terms with the variable to one side and constants to the other</li>
+                    <li>Solve for the variable</li>
+                </ol>
+                
+                <div class="example-box">
+                    <h5>Example 4: Solving a Linear Equation</h5>
+                    <p><strong>Solve:</strong> 3(2x - 1) = 4x + 7</p>
+                    
+                    <p><strong>Solution:</strong></p>
+                    <div class="math-formula">
+                        3(2x - 1) = 4x + 7<br>
+                        6x - 3 = 4x + 7<br>
+                        6x - 4x = 7 + 3<br>
+                        2x = 10<br>
+                        x = 5
+                    </div>
+                    
+                    <p><strong>Check:</strong> Substitute x = 5 into the original equation:</p>
+                    <div class="math-formula">
+                        3(2 × 5 - 1) = 4 × 5 + 7<br>
+                        3(10 - 1) = 20 + 7<br>
+                        3 × 9 = 27<br>
+                        27 = 27 ✓
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Inequalities Section -->
+            <section class="mb-5">
+                <h2>Linear Inequalities</h2>
+                
+                <p>Inequalities compare expressions using the symbols <, >, ≤, or ≥ instead of equals (=).</p>
+                
+                <div class="row">
+                    <div class="col-md-7">
+                        <h4 class="mt-3">Solving Linear Inequalities</h4>
+                        <p>The process for solving inequalities is similar to equations, with one important difference:</p>
+                        
+                        <div class="key-point">
+                            <p><strong>Important Rule:</strong> When multiplying or dividing both sides of an inequality by a negative number, you must reverse the inequality sign.</p>
+                        </div>
+                        
+                        <table class="formula-table">
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Meaning</th>
+                                <th>Example</th>
+                            </tr>
+                            <tr>
+                                <td>&lt;</td>
+                                <td>Less than</td>
+                                <td>x &lt; 5</td>
+                            </tr>
+                            <tr>
+                                <td>&gt;</td>
+                                <td>Greater than</td>
+                                <td>x &gt; 7</td>
+                            </tr>
+                            <tr>
+                                <td>≤</td>
+                                <td>Less than or equal to</td>
+                                <td>x ≤ 3</td>
+                            </tr>
+                            <tr>
+                                <td>≥</td>
+                                <td>Greater than or equal to</td>
+                                <td>x ≥ 10</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-5">
+                        <img src="/api/placeholder/350/350" alt="Number line showing inequalities" class="topic-image mt-4">
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <h5>Example 5: Solving a Linear Inequality</h5>
+                    <p><strong>Solve:</strong> 2x + 5 ≤ 4x - 3</p>
+                    
+                    <p><strong>Solution:</strong></p>
+                    <div class="math-formula">
+                        2x + 5 ≤ 4x - 3<br>
+                        2x - 4x ≤ -3 - 5<br>
+                        -2x ≤ -8<br>
+                        -2x ÷ (-2) ≥ -8 ÷ (-2)<br>
+                        x ≥ 4
+                    </div>
+                    
+                    <p><strong>Note:</strong> We reversed the inequality sign when dividing by -2.</p>
+                    <p><strong>Answer:</strong> The solution is x ≥ 4, which means all values of x that are greater than or equal to 4.</p>
+                </div>
+            </section>
+            
+            <!-- Practice Questions -->
+            <section class="mb-5">
+                <h2>Practice Questions</h2>
+                <p>Test your understanding of algebraic techniques with these practice questions:</p>
+                
+                <div class="practice-question">
+                    <p><strong>Question 1:</strong> Simplify the expression: 5x - 3y + 2x + 4y - 6</p>
+                </div>
+                
+                <div class="practice-question">
+                    <p><strong>Question 2:</strong> Expand and simplify: 4(3x - 2) + 2(x + 5)</p>
+                </div>
+                
+                <div class="practice-question">
+                    <p><strong>Question 3:</strong> Factorize completely: 15x² - 25x</p>
+                </div>
+                
+                <div class="practice-question">
+                    <p><strong>Question 4:</strong> Solve the equation: 5(x - 3) = 2(x + 4) + 7</p>
+                </div>
+                
+                <div class="practice-question">
+                    <p><strong>Question 5:</strong> Solve the inequality: 3(x + 2) ≥ 4(x - 1)</p>
+                </div>
+                
+                <div class="mt-4">
+                    <a href="algebra-practice.html" class="btn btn-outline-purple">More Practice Questions</a>
+                    <a href="algebra-solutions.html" class="btn btn-outline-secondary ms-2">View Solutions</a>
+                </div>
+            </section>
+            
+            <!-- Interactive Resources -->
+            <section class="mb-5">
+                <h2>Interactive Resources</h2>
+                
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Algebra Calculator</h5>
+                                <p class="card-text">Check your work and practice solving equations step-by-step.</p>
+                                <a href="algebra-calculator.html" class="btn btn-sm btn-outline-purple">Open Calculator</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Video Tutorials</h5>
+                                <p class="card-text">Watch step-by-step explanations of algebraic techniques.</p>
+                                <a href="algebra-videos.html" class="btn btn-sm btn-outline-purple">Watch Videos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Assessment -->
+            <section class="mb-5">
+                <h2>Self-Assessment Quiz</h2>
+                <p>Test your knowledge with our self-assessment quiz on algebraic techniques.</p>
+                <a href="algebra-quiz.html" class="btn btn-purple">Start Quiz</a>
+            </section>
+            
+            <!-- Real-world Applications -->
+            <section class="mb-5">
+                <h2>Real-world Applications</h2>
+                <p>Algebra has many practical applications in everyday life:</p>
+                
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Financial Planning</h5>
+                                <p class="card-text">Calculate interest, loans, and savings using algebraic formulas.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Sports Analysis</h5>
+                                <p class="card-text">Calculate player statistics and predict performance.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Engineering & Construction</h5>
+                                <p class="card-text">Design structures and calculate materials needed.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Chapter Navigation -->
+            <div class="chapter-navigation">
+                <div class="row">
+                    <div class="col-6">
+                        <a href="index.html" class="btn btn-outline-purple">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                            Back to Year 9 Mathematics
+                        </a>
+                    </div>
+                    <div class="col-6 text-end">
+                        <a href="coordinate.html" class="btn btn-outline-purple">
+                            Next: Coordinate Geometry
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ms-1"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="../../navigation.js"></script>
+</body>
+</html>

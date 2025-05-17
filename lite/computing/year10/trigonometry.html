@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 10 Trigonometry | Mathematics</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../../styles.css" rel="stylesheet">
+    <style>
+        /* Topic page specific styles */
+        .math-formula {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: "Cambria Math", "Times New Roman", serif;
+            margin: 1rem 0;
+        }
+        
+        .example-box {
+            border-left: 4px solid #6A1B9A;
+            background-color: rgba(106, 27, 154, 0.05);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .example-box h5 {
+            color: #6A1B9A;
+        }
+        
+        .practice-question {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .practice-question:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .topic-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .key-point {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #FFC107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .chapter-navigation {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar">
+            <div class="sidebar-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Navigation</h4>
+                <button id="sidebar-close" class="sidebar-toggle d-md-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="p-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="../../index.html" class="nav-link">Home</a>
+                    </li>
+                    
+                    <!-- Maths Section -->
+                    <li class="nav-item">
+                        <a href="#mathsSubmenu" data-bs-toggle="collapse" class="nav-link d-flex justify-content-between align-items-center">
+                            <span>Maths</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                        <ul class="collapse nav flex-column submenu" id="mathsSubmenu">
+                            <li class="nav-item">
+                                <a href="../year7/index.html" class="nav-link">Year 7</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../year8/index.html" class="nav-link">Year 8</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../year9/index.html" class="nav-link">Year 9</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../year10/index.html" class="nav-link">Year 10</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../year11/index.html" class="nav-link">Year 11</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../year12/index.html" class="nav-link">Year 12</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Computing Section -->
+                    <li class="nav-item">
+                        <a href="#computingSubmenu" data-bs-toggle="collapse" class="nav-link d-flex justify-content-between align-items-center">
+                            <span>Computing</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                        <ul class="collapse nav flex-column submenu" id="computingSubmenu">
+                            <li class="nav-item">
+                                <a href="../../computing/year7/index.html" class="nav-link">Year 7</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../computing/year8/index.html" class="nav-link">Year 8</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../computing/year9/index.html" class="nav-link">Year 9</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../computing/year10/index.html" class="nav-link">Year 10</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../computing/year11/index.html" class="nav-link">Year 11</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../computing/year12/index.html" class="nav-link">Year 12</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Toggle button for mobile -->
+        <div class="position-fixed top-0 start-0 p-3 d-md-none" style="z-index: 5;">
+            <button id="sidebar-toggle" class="btn btn-purple">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+        
+        <!-- Page Content -->
+        <div id="content-wrapper" class="content-wrapper flex-grow-1 p-4">
+            <!-- Topic Breadcrumb -->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="index.html">Year 10 Mathematics</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Trigonometry</li>
+                </ol>
+            </nav>
+            
+            <!-- Topic Header -->
+            <div class="mb-5">
+                <h1 class="display-5 mb-3">Trigonometry</h1>
+                <p class="lead">Discovering the relationships between angles and sides in triangles and their real-world applications.</p>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-purple">Year 10</span>
+                    <span class="badge bg-success">Updated Content</span>
+                </div>
+            </div>
+            
+            <!-- Learning Objectives -->
+            <div class="card mb-4">
+                <div class="card-header bg-purple text-white">
+                    <h3 class="mb-0">Learning Objectives</h3>
+                </div>
+                <div class="card-body">
+                    <p>After completing this topic, you should be able to:</p>
+                    <ul>
+                        <li>Define and use the three primary trigonometric ratios: sine, cosine, and tangent</li>
+                        <li>Apply trigonometric ratios to solve problems involving right-angled triangles</li>
+                        <li>Use the sine and cosine rules to solve problems in non-right-angled triangles</li>
+                        <li>Solve practical problems by applying trigonometric concepts</li>
+                        <li>Convert between degrees and radians (introduction)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Introduction Section -->
+            <section class="mb-5">
+                <h2>Introduction to Trigonometry</h2>
+                
+                <p>Trigonometry is the branch of mathematics that studies the relationships between the angles and sides of triangles. The word "trigonometry" comes from the Greek words "trigonon" (triangle) and "metron" (measure).</p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>While trigonometry began as a way to solve problems related to astronomy and navigation, it's now an essential tool in various fields including:</p>
+                        <ul>
+                            <li>Engineering and construction</li>
+                            <li>Physics and mechanics</li>
+                            <li>Computer graphics and game development</li>
+                            <li>Surveying and cartography</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="/api/placeholder/500/300" alt="Trigonometry applications" class="topic-image">
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    <strong>Key Concept:</strong> Trigonometric ratios define the relationships between the sides and angles of a right-angled triangle.
+                </div>
+            </section>
+            
+            <!-- Basic Trigonometric Ratios -->
+            <section class="mb-5">
+                <h2>Basic Trigonometric Ratios</h2>
+                
+                <p>The three primary trigonometric ratios are sine (sin), cosine (cos), and tangent (tan). In a right-angled triangle:</p>
+                
+                <div class="math-formula">
+                    sin θ = opposite / hypotenuse<br>
+                    cos θ = adjacent / hypotenuse<br>
+                    tan θ = opposite / adjacent
+                </div>
+                
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <img src="/api/placeholder/400/400" alt="Right-angled triangle with labeled sides" class="topic-image">
+                    </div>
+                    <div class="col-md-6">
+                        <p>Where:</p>
+                        <ul>
+                            <li><strong>θ (theta)</strong>: The angle we're working with</li>
+                            <li><strong>Opposite</strong>: The side opposite to the angle θ</li>
+                            <li><strong>Adjacent</strong>: The side next to the angle θ (not the hypotenuse)</li>
+                            <li><strong>Hypotenuse</strong>: The longest side of the triangle (opposite the right angle)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="key-point mt-3">
+                    <p><strong>Remember:</strong> A helpful way to remember these ratios is the mnemonic <strong>SOH-CAH-TOA</strong>:</p>
+                    <ul class="mb-0">
+                        <li><strong>S</strong>ine = <strong>O</strong>pposite / <strong>H</strong>ypotenuse</li>
+                        <li><strong>C</strong>osine = <strong>A</strong>djacent / <strong>H</strong>ypotenuse</li>
+                        <li><strong>T</strong>angent = <strong>O</strong>pposite / <strong>A</strong>djacent</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Example Section -->
+            <section class="mb-5">
+                <h2>Worked Examples</h2>
+                
+                <div class="example-box">
+                    <h5>Example 1: Finding a Missing Side</h5>
+                    <p><strong>Problem:</strong> In a right-angled triangle, angle A = 35°, and the hypotenuse is 10 cm long. Find the length of the side opposite to angle A.</p>
+                    
+                    <p><strong>Solution:</strong></p>
+                    <p>We need to find the opposite side, and we know the hypotenuse and the angle. This is a perfect scenario for using the sine ratio:</p>
+                    
+                    <div class="math-formula">
+                        sin A = opposite / hypotenuse<br>
+                        sin 35° = opposite / 10<br>
+                        opposite = 10 × sin 35°<br>
+                        opposite = 10 × 0.5736...<br>
+                        opposite ≈ 5.74 cm
+                    </div>
+                    
+                    <p><strong>Answer:</strong> The side opposite to angle A is approximately 5.74 cm.</p>
+                </div>
+                
+                <div class="example-box">
+                    <h5>Example 2: Finding an Angle</h5>
+                    <p><strong>Problem:</strong> In a right-angled triangle, the adjacent side is 8 cm and the hypotenuse is 12 cm. Find angle B.</p>
+                    
+                    <p><strong>Solution:</strong></p>
+                    <p>We know the adjacent side and the hypotenuse, so we'll use the cosine ratio:</p>
+                    
+                    <div class="math-formula">
+                        cos B = adjacent / hypotenuse<br>
+                        cos B = 8 / 12<br>
+                        cos B = 0.6667...<br>
+                        B = cos<sup>-1</sup>(0.6667...)<br>
+                        B ≈ 48.2°
+                    </div>
+                    
+                    <p><strong>Answer:</strong> Angle B is approximately 48.2 degrees.</p>
+                </div>
+            </section>
+            
+            <!-- Practice Questions -->
+            <section class="mb-5">
+                <h2>Practice Questions</h2>
+                <p>Test your understanding of trigonometric ratios with these practice questions:</p>
+                
+                <div class="practice-question">
+                    <p><strong>Question 1:</strong> In a right-angled triangle, angle C = 42° and the hypotenuse is 15 cm. Calculate the length of the adjacent side to angle C.</p>
+                </div>
+                
+                <div class="practice-question">
+                    <p><strong>Question 2:</strong> A ladder 5 meters long leans against a vertical wall. If the foot of the ladder is 2 meters from the wall, what angle does the ladder make with the ground?</p>
+                </div>
+                
+                <div class="practice-question">
+                    <p><strong>Question 3:</strong> In a right-angled triangle, the opposite side is 12 cm and the adjacent side is 5 cm. Find the measure of the angle and the length of the hypotenuse.</p>
+                </div>
+                
+                <div class="mt-4">
+                    <a href="trigonometry-practice.html" class="btn btn-outline-purple">More Practice Questions</a>
+                    <a href="trigonometry-solutions.html" class="btn btn-outline-secondary ms-2">View Solutions</a>
+                </div>
+            </section>
+            
+            <!-- Interactive Resources -->
+            <section class="mb-5">
+                <h2>Interactive Resources</h2>
+                
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Interactive Triangle Calculator</h5>
+                                <p class="card-text">Experiment with different values and see how trigonometric ratios work in real-time.</p>
+                                <a href="trigonometry-calculator.html" class="btn btn-sm btn-outline-purple">Open Calculator</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Video Tutorial</h5>
+                                <p class="card-text">Watch a step-by-step explanation of trigonometric concepts.</p>
+                                <a href="trigonometry-video.html" class="btn btn-sm btn-outline-purple">Watch Video</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Assessment -->
+            <section class="mb-5">
+                <h2>Self-Assessment Quiz</h2>
+                <p>Test your knowledge with our self-assessment quiz.</p>
+                <a href="trigonometry-quiz.html" class="btn btn-purple">Start Quiz</a>
+            </section>
+            
+            <!-- Chapter Navigation -->
+            <div class="chapter-navigation">
+                <div class="row">
+                    <div class="col-6">
+                        <a href="quadratics.html" class="btn btn-outline-purple">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                            Previous: Quadratic Expressions
+                        </a>
+                    </div>
+                    <div class="col-6 text-end">
+                        <a href="statistics.html" class="btn btn-outline-purple">
+                            Next: Statistical Analysis
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ms-1"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="../../navigation.js"></script>
+</body>
+</html>
