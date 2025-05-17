@@ -1,8 +1,8 @@
-# TeachNotes: Curriculum Management System
+# MathsHelp25: Curriculum Management System
 ## Capstone Project Proposal
 
 ### Project Overview
-TeachNotes is a specialized note-taking application designed specifically for high school mathematics and computing teachers. The platform allows educators to organize, store, and retrieve teaching content, resources, and reflections based on subject areas, year levels, and curriculum substrands. This tool aims to solve the common problem of curriculum continuity and knowledge management that teachers face across academic years.
+MathsHelp (TeachNotes is a previous name that may appear elsewhere) is a specialized note-taking application designed specifically for high school mathematics and computing teachers. The platform allows educators to organize, store, and retrieve teaching content, resources, and reflections based on subject areas, year levels, and curriculum substrands. This tool aims to solve the common problem of curriculum continuity and knowledge management that teachers face across academic years.
 
 ### Problem Statement
 High school teachers often struggle with:

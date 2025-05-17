@@ -1,0 +1,82 @@
+/* File: css/navigation.css */
+.sidebar {
+    min-height: 100vh;
+    background-color: #6A1B9A;
+    color: white;
+    transition: all 0.3s;
+    width: 250px;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        z-index: 999;
+    }
+    
+    .sidebar.show {
+        left: 0;
+    }
+    
+    .content-wrapper {
+        margin-left: 0 !important;
+    }
+}
+
+.sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    margin: 0.2rem 0;
+}
+
+.sidebar .nav-link:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .nav-link.active {
+    background-color: #4A148C;
+    color: white;
+}
+
+.sidebar .submenu {
+    padding-left: 1.5rem;
+    border-left: 2px solid #FFC107;
+    margin-left: 0.5rem;
+}
+
+.sidebar-header {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-toggle {
+    color: white;
+    background-color: #6A1B9A;
+    border: none;
+}
+
+.content-wrapper {
+    transition: margin-left 0.3s;
+    margin-left: 250px;
+}
+
+.chevron-icon {
+    transition: transform 0.3s;
+}
+
+.rotate-down {
+    transform: rotate(90deg);
+}
+
+.btn-purple {
+    background-color: #6A1B9A;
+    color: white;
+}
+
+.btn-purple:hover {
+    background-color: #4A148C;
+    color: white;
+}

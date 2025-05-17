@@ -1,0 +1,100 @@
+/* File: css/style.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+}
+
+.page-title {
+    color: #6A1B9A;
+    font-weight: 700;
+    border-bottom: 3px solid #FFC107;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.card {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 8px;
+}
+
+.card-header {
+    background-color: rgba(106, 27, 154, 0.1);
+    border-bottom: 1px solid rgba(106, 27, 154, 0.2);
+    font-weight: bold;
+}
+
+/* Custom breadcrumb styling */
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+}
+
+.breadcrumb-item a {
+    color: #6A1B9A;
+    text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: #757575;
+}
+
+/* Button styling */
+.btn-primary {
+    background-color: #6A1B9A;
+    border-color: #6A1B9A;
+}
+
+.btn-primary:hover {
+    background-color: #4A148C;
+    border-color: #4A148C;
+}
+
+.btn-outline-primary {
+    color: #6A1B9A;
+    border-color: #6A1B9A;
+}
+
+.btn-outline-primary:hover {
+    background-color: #6A1B9A;
+    border-color: #6A1B9A;
+}
+
+/* Topic cards */
+.card-title {
+    color: #6A1B9A;
+    font-weight: 600;
+}
+
+/* List group custom styling */
+.list-group-item {
+    transition: background-color 0.2s;
+}
+
+.list-group-item:hover {
+    background-color: rgba(106, 27, 154, 0.05);
+}
+
+/* Important dates badges */
+.badge {
+    font-weight: 500;
+}
+
+/* Links */
+a {
+    color: #6A1B9A;
+}
+
+a:hover {
+    color: #4A148C;
+}
+
+/* Resource icons */
+.resource-icon {
+    font-size: 2rem;
+    color: #6A1B9A;
+}

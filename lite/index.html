@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maths Help 25</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background-color: #6A1B9A;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            margin: 0.2rem 0;
+        }
+        
+        .sidebar .nav-link:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar .nav-link.active {
+            background-color: #4A148C;
+            color: white;
+        }
+        
+        .sidebar .submenu {
+            padding-left: 1.5rem;
+            border-left: 2px solid #FFC107;
+            margin-left: 0.5rem;
+        }
+        
+        .sidebar-header {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-toggle {
+            color: white;
+            background-color: transparent;
+            border: none;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: -250px;
+                width: 250px;
+                z-index: 999;
+            }
+            
+            .sidebar.show {
+                left: 0;
+            }
+            
+            .content-wrapper {
+                margin-left: 0 !important;
+            }
+        }
+        
+        .content-wrapper {
+            transition: margin-left 0.3s;
+        }
+        
+        .chevron-icon {
+            transition: transform 0.3s;
+        }
+        
+        .rotate-down {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar">
+            <div class="sidebar-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Navigation</h4>
+                <button id="sidebar-close" class="sidebar-toggle d-md-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="p-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    
+                    <!-- Maths Section -->
+                    <li class="nav-item">
+                        <a href="#mathsSubmenu" data-bs-toggle="collapse" class="nav-link d-flex justify-content-between align-items-center">
+                            <span>Maths</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                        <ul class="collapse nav flex-column submenu" id="mathsSubmenu">
+                            <li class="nav-item">
+                                <a href="maths/year7/index.html" class="nav-link">Year 7</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="maths/year8/index.html" class="nav-link">Year 8</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="maths/year9/index.html" class="nav-link">Year 9</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="maths/year10/index.html" class="nav-link">Year 10</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="maths/year11/index.html" class="nav-link">Year 11</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="maths/year12/index.html" class="nav-link">Year 12</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Computing Section -->
+                    <li class="nav-item">
+                        <a href="#computingSubmenu" data-bs-toggle="collapse" class="nav-link d-flex justify-content-between align-items-center">
+                            <span>Computing</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                        <ul class="collapse nav flex-column submenu" id="computingSubmenu">
+                            <li class="nav-item">
+                                <a href="computing/year7/index.html" class="nav-link">Year 7</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="computing/year8/index.html" class="nav-link">Year 8</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="computing/year9/index.html" class="nav-link">Year 9</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="computing/year10/index.html" class="nav-link">Year 10</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="computing/year11/index.html" class="nav-link">Year 11</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="computing/year12/index.html" class="nav-link">Year 12</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Toggle button for mobile -->
+        <div class="position-fixed top-0 start-0 p-3 d-md-none" style="z-index: 5;">
+            <button id="sidebar-toggle" class="btn btn-purple" style="background-color: #6A1B9A; color: white;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+        
+        <!-- Page Content -->
+        <div id="content-wrapper" class="content-wrapper flex-grow-1 p-4">
+            <h1 class="mb-4">Welcome to Maths Help 25</h1>
+            <p>Select a section from the navigation menu to view content.</p>
+            
+            <!-- Your page content goes here -->
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile sidebar toggle
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const sidebarClose = document.getElementById('sidebar-close');
+            const sidebar = document.getElementById('sidebar');
+            
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('show');
+            });
+            
+            sidebarClose.addEventListener('click', function() {
+                sidebar.classList.remove('show');
+            });
+            
+            // Make chevron icons rotate when menu is expanded
+            document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(function(element) {
+                element.addEventListener('click', function() {
+                    const chevron = this.querySelector('.chevron-icon');
+                    chevron.classList.toggle('rotate-down');
+                });
+                
+                // Also listen for Bootstrap events
+                const targetId = element.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.addEventListener('show.bs.collapse', function() {
+                        const chevron = element.querySelector('.chevron-icon');
+                        chevron.classList.add('rotate-down');
+                    });
+                    
+                    targetElement.addEventListener('hide.bs.collapse', function() {
+                        const chevron = element.querySelector('.chevron-icon');
+                        chevron.classList.remove('rotate-down');
+                    });
+                }
+            });
+            
+            // Detect current page and set active class
+            const currentPage = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(function(link) {
+                if (link.getAttribute('href') && currentPage.endsWith(link.getAttribute('href'))) {
+                    link.classList.add('active');
+                    
+                    // If it's in a submenu, expand that menu
+                    const parentSubmenu = link.closest('.submenu');
+                    if (parentSubmenu) {
+                        parentSubmenu.classList.add('show');
+                        const toggleButton = document.querySelector(`[href="#${parentSubmenu.id}"]`);
+                        if (toggleButton) {
+                            const chevron = toggleButton.querySelector('.chevron-icon');
+                            chevron.classList.add('rotate-down');
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
