@@ -1,3 +1,8 @@
+link to google slides
+https://docs.google.com/presentation/d/1fG9rqx6oA5SeOnryd0OQbpjqura3GngSmObRx8QngOA/edit?usp=sharing
+
+
+
 ####### May 18
 consider this:
 

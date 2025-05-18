@@ -1,0 +1,205 @@
+# TeachShare: Educational Resource Hub
+## Capstone Project Proposal
+
+need to rename as Maths Help 25
+
+### Project Overview
+TeachShare is a comprehensive web application designed for teachers to discover, share, and evaluate teaching resources across various subjects and year groups. The platform aims to create a centralized repository where educators can find inspiration for lesson activities, rate resources based on their effectiveness, and contribute their own ideas to support fellow teachers.
+
+### Problem Statement
+Teachers often struggle to find high-quality, relevant teaching resources quickly. They spend significant time searching across multiple websites, books, and personal collections to plan effective lessons. TeachShare addresses this challenge by creating a collaborative platform specifically designed for educators to share and discover teaching resources efficiently, organized by subject, year group, and topic.
+
+### Target Audience
+- Primary and secondary school teachers
+- Department heads and curriculum planners
+- Teacher trainees and education students
+
+### Features and Functionality
+
+#### User Authentication and Profiles
+- Secure login/signup system using OAuth (Google and Microsoft)
+- User profiles with teaching specialties and preferences
+- Role-based access for regular teachers and future department head features
+
+#### Content Structure and Navigation
+- Hierarchical organization: Subject → Year Group → Topic → Activities
+- Intuitive navigation with breadcrumbs and search functionality
+- Responsive design that works well on desktop and mobile devices
+
+#### Resource Management
+- Activity listings with descriptions and resource links
+- Rating system (5-star) tied to user profiles
+- User-contributed activities with source labeling (Internal/External/User Contributed)
+
+#### Search and Discovery
+- Subject browsing interface with visual categorization
+- Topic exploration within subjects and year groups
+- Basic search functionality with plans for advanced filtering
+
+### Technology Stack
+
+#### Frontend
+- **Framework**: React.js with functional components and hooks
+- **State Management**: React Context API and useState/useReducer hooks
+- **Styling**: Tailwind CSS for responsive design with purple and gold theme
+- **UI Components**: Custom components with Lucide React for icons
+
+#### Backend
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Authentication**: Passport.js with Google and Microsoft OAuth strategies
+- **API**: RESTful API endpoints for data operations
+
+#### Database
+- **Database System**: MongoDB
+- **ODM**: Mongoose for schema definition and validation
+- **Hosting**: MongoDB Atlas
+
+#### Deployment
+- **Hosting**: Render.com
+- **CI/CD**: GitHub Actions for automated deployment
+
+### Project Timeline (4 Weeks)
+
+#### Week 1: Project Setup and Basic Structure
+- Set up project repository and development environment
+- Implement authentication system with OAuth
+- Create database schemas and basic API endpoints
+- Develop core UI components (navigation, subject selection)
+
+#### Week 2: Core Features Development
+- Implement topic and activity listing interfaces
+- Create contribution forms for user-generated content
+- Develop the rating system
+- Connect frontend with backend API endpoints
+
+#### Week 3: Enhancement and Refinement
+- Implement search functionality
+- Add responsive design elements for mobile compatibility
+- Improve navigation and user flow
+- Perform testing and bug fixes
+
+#### Week 4: Polish and Deployment
+- Finalize styling and UI improvements
+- Deploy application to Render.com
+- Set up MongoDB Atlas for production
+- Complete documentation and presentation
+
+### Key Components
+
+#### Authentication System
+- Login/signup page with email and OAuth options
+- Session management and protected routes
+- User role assignment and permissions
+
+#### Subject and Topic Navigation
+- Subject selection interface with visual categorization
+- Year group selection within subjects
+- Topic listings with activity counts and difficulty indicators
+
+#### Activity Management
+- Detailed topic pages with activity listings
+- Rating system for quality evaluation
+- Contribution form for adding new activities
+
+#### User Interface
+- Consistent purple and gold color scheme
+- Responsive design for all screen sizes
+- Intuitive navigation with breadcrumbs and clear labels
+
+### Technical Implementation Details
+
+#### Database Schema
+```javascript
+// User Model
+{
+  _id: ObjectId,
+  name: String,
+  email: String,
+  profileImage: String,
+  role: String (default: 'teacher'),
+  subjects: [ObjectId] (ref: 'Subject'),
+  createdAt: Date
+}
+
+// Subject Model
+{
+  _id: ObjectId,
+  name: String,
+  description: String,
+  iconType: String
+}
+
+// YearGroup Model
+{
+  _id: ObjectId,
+  name: String,
+  subject: ObjectId (ref: 'Subject')
+}
+
+// Topic Model
+{
+  _id: ObjectId,
+  name: String,
+  description: String,
+  yearGroup: ObjectId (ref: 'YearGroup'),
+  difficulty: String (enum: ['Easy', 'Medium', 'Hard']),
+  activityCount: Number
+}
+
+// Activity Model
+{
+  _id: ObjectId,
+  title: String,
+  description: String,
+  link: String,
+  topic: ObjectId (ref: 'Topic'),
+  createdBy: ObjectId (ref: 'User'),
+  source: String (enum: ['Internal', 'External', 'User Contributed']),
+  ratings: [{
+    user: ObjectId (ref: 'User'),
+    value: Number (1-5)
+  }],
+  averageRating: Number,
+  ratingCount: Number,
+  createdAt: Date
+}
+```
+
+#### API Endpoints
+
+**Authentication**
+- `POST /api/auth/login` - Email login
+- `GET /api/auth/google` - Google OAuth login
+- `GET /api/auth/microsoft` - Microsoft OAuth login
+- `GET /api/auth/logout` - Logout
+
+**Subjects**
+- `GET /api/subjects` - Get all subjects
+- `GET /api/subjects/:id` - Get subject by ID
+
+**Year Groups**
+- `GET /api/years` - Get all year groups
+- `GET /api/subjects/:subjectId/years` - Get years by subject
+
+**Topics**
+- `GET /api/topics` - Get all topics
+- `GET /api/years/:yearId/topics` - Get topics by year
+- `GET /api/topics/:id` - Get topic by ID
+
+**Activities**
+- `GET /api/topics/:topicId/activities` - Get activities by topic
+- `POST /api/topics/:topicId/activities` - Create new activity
+- `POST /api/activities/:id/rate` - Rate an activity
+
+### Future Expansion Possibilities
+- Advanced search and filtering options
+- Department head features for content management
+- File upload capabilities for worksheets and presentations
+- Discussion features for teacher collaboration
+- Analytics for tracking popular resources
+
+### Conclusion
+TeachShare will be a valuable tool for educators seeking high-quality teaching resources. By creating a user-friendly platform with well-organized content and collaborative features, this application aims to save teachers time and improve the quality of educational materials available to them. The project leverages modern web technologies and follows best practices in frontend and backend development.
+
+This capstone project will demonstrate proficiency in full-stack development, including React components, API development, database integration, authentication, and deployment processes.
