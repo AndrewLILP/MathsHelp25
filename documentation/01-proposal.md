@@ -19,6 +19,7 @@ High school teachers often struggle with:
 - Education coordinators managing teaching resources
 
 ### Key Features
+- Topic cards to feature links to webpages
 
 #### User Authentication
 - Secure login/registration system

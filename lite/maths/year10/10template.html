@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expanding Brackets - Year 10 NSW Math</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../../styles.css" rel="stylesheet">
+    <style>
+        /* Additional styles specific to math examples */
+        .example-card {
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.125);
+            border-radius: 0.375rem;
+            overflow: hidden;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+            transition: all 0.3s ease;
+        }
+        
+        .example-card:hover {
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+            border-color: var(--bs-purple);
+        }
+        
+        .example-header {
+            background: linear-gradient(to right, var(--bs-purple), #8b5cf6);
+            color: white;
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .example-content {
+            padding: 1.5rem;
+            display: none;
+            background-color: #fff;
+        }
+        
+        .example-content.visible {
+            display: block;
+        }
+        
+        .problem-box {
+            background-color: #f3e8ff;
+            padding: 1rem;
+            border-radius: 0.375rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--bs-purple);
+        }
+        
+        .problem-box span {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--bs-purple);
+        }
+        
+        .solution-box {
+            background-color: #fef3c7;
+            padding: 1rem;
+            border-radius: 0.375rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .explanation-box {
+            background-color: #dbeafe;
+            padding: 1rem;
+            border-radius: 0.375rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .box-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
+        
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+        
+        .chevron.down {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar">
+            <div class="sidebar-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Navigation</h4>
+                <button id="sidebar-close" class="sidebar-toggle d-md-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="p-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="../../index.html" class="nav-link">Home</a>
+                    </li>
+                    
+                    <!-- Maths Section -->
+                    <li class="nav-item">
+                        <a href="#mathsSubmenu" data-bs-toggle="collapse" class="nav-link d-flex justify-content-between align-items-center">
+                            <span>Maths</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                        <ul class="collapse nav flex-column submenu show" id="mathsSubmenu">
+                            <li class="nav-item">
+                                <a href="../year7/index.html" class="nav-link">Year 7</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../year8/index.html" class="nav-link">Year 8</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../year9/index.html" class="nav-link">Year 9</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../year10/index.html" class="nav-link active">Year 10</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../year11/index.html" class="nav-link">Year 11</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../year12/index.html" class="nav-link">Year 12</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Computing Section -->
+                    <li class="nav-item">
+                        <a href="#computingSubmenu" data-bs-toggle="collapse" class="nav-link d-flex justify-content-between align-items-center">
+                            <span>Computing</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                        <ul class="collapse nav flex-column submenu" id="computingSubmenu">
+                            <li class="nav-item">
+                                <a href="../../computing/year7/index.html" class="nav-link">Year 7</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../computing/year8/index.html" class="nav-link">Year 8</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../computing/year9/index.html" class="nav-link">Year 9</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../computing/year10/index.html" class="nav-link">Year 10</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../computing/year11/index.html" class="nav-link">Year 11</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../computing/year12/index.html" class="nav-link">Year 12</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Toggle button for mobile -->
+        <div class="position-fixed top-0 start-0 p-3 d-md-none" style="z-index: 5;">
+            <button id="sidebar-toggle" class="btn btn-purple">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+        
+        <!-- Page Content -->
+        <div id="content-wrapper" class="content-wrapper flex-grow-1 p-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="../../index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="../index.html">Maths</a></li>
+                    <li class="breadcrumb-item"><a href="index.html">Year 10</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Expanding Brackets</li>
+                </ol>
+            </nav>
+
+            <h1 class="mb-3">Expanding Brackets</h1>
+            <p class="lead mb-4">Learn how to expand algebraic expressions by removing the brackets using the distributive property. These techniques are essential for simplifying and solving algebraic equations.</p>
+            
+            <!-- Instructions card -->
+            <div class="card mb-4 border-purple">
+                <div class="card-header bg-purple text-white">
+                    <h3 class="mb-0">How to Use This Resource</h3>
+                </div>
+                <div class="card-body">
+                    <p>Click on each example to expand it and see the solution. The examples progress from simple to more complex, so it's recommended to work through them in order. Each example includes:</p>
+                    <ul>
+                        <li>The original expression to expand</li>
+                        <li>The correct solution after expanding</li>
+                        <li>A detailed explanation using the distributive property</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h2 class="mb-3">Examples</h2>
+            <div id="examples-container">
+                <!-- Examples will be generated by JavaScript -->
+            </div>
+            
+            <!-- Related Topics -->
+            <div class="card mt-5">
+                <div class="card-header bg-purple text-white">
+                    <h3 class="mb-0">Related Topics</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Further Learning</h5>
+                            <ul>
+                                <li><a href="factorizing-quadratics.html">Factorizing Quadratic Expressions</a></li>
+                                <li><a href="solving-quadratics.html">Solving Quadratic Equations</a></li>
+                                <li><a href="quadratic-graphs.html">Graphing Quadratic Functions</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Practice Resources</h5>
+                            <ul>
+                                <li><a href="expanding-brackets-worksheet.html">Expanding Brackets Worksheet</a></li>
+                                <li><a href="quadratics-practice.html">Quadratics Practice Questions</a></li>
+                                <li><a href="algebra-quiz.html">Algebra Quiz</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript for navigation -->
+    <script src="../../navigation.js"></script>
+    
+    <!-- Examples JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Examples of expanding brackets
+            const examples = [
+                {
+                    id: 1,
+                    problem: "3(x + 2)",
+                    solution: "3x + 6",
+                    explanation: "Apply the distributive property: multiply each term inside the brackets by 3. \n3(x + 2) = 3 × x + 3 × 2 = 3x + 6"
+                },
+                {
+                    id: 2,
+                    problem: "2(x - 5)",
+                    solution: "2x - 10",
+                    explanation: "Apply the distributive property: multiply each term inside the brackets by 2. \n2(x - 5) = 2 × x + 2 × (-5) = 2x - 10"
+                },
+                {
+                    id: 3,
+                    problem: "(x + 4)(x + 3)",
+                    solution: "x² + 7x + 12",
+                    explanation: "Apply the distributive property twice: \n(x + 4)(x + 3) = x(x + 3) + 4(x + 3) \n= x² + 3x + 4x + 12 \n= x² + 7x + 12"
+                },
+                {
+                    id: 4,
+                    problem: "(x - 2)(x + 5)",
+                    solution: "x² + 3x - 10",
+                    explanation: "Apply the distributive property twice: \n(x - 2)(x + 5) = x(x + 5) + (-2)(x + 5) \n= x² + 5x - 2x - 10 \n= x² + 3x - 10"
+                },
+                {
+                    id: 5,
+                    problem: "(2x + 1)²",
+                    solution: "4x² + 4x + 1",
+                    explanation: "For (a + b)², use the formula a² + 2ab + b² where a = 2x and b = 1: \n(2x + 1)² = (2x)² + 2(2x)(1) + 1² \n= 4x² + 4x + 1"
+                },
+                {
+                    id: 6,
+                    problem: "(3x - 2)²",
+                    solution: "9x² - 12x + 4",
+                    explanation: "For (a - b)², use the formula a² - 2ab + b² where a = 3x and b = 2: \n(3x - 2)² = (3x)² - 2(3x)(2) + 2² \n= 9x² - 12x + 4"
+                },
+                {
+                    id: 7,
+                    problem: "(x + 3)(x - 3)",
+                    solution: "x² - 9",
+                    explanation: "Apply the distributive property: \n(x + 3)(x - 3) = x(x - 3) + 3(x - 3) \n= x² - 3x + 3x - 9 \n= x² - 9 \nThis is also a difference of squares pattern: (a + b)(a - b) = a² - b²"
+                },
+                {
+                    id: 8,
+                    problem: "4(2x² - 3x + 1)",
+                    solution: "8x² - 12x + 4",
+                    explanation: "Apply the distributive property: multiply each term inside the brackets by 4. \n4(2x² - 3x + 1) = 4 × 2x² + 4 × (-3x) + 4 × 1 \n= 8x² - 12x + 4"
+                },
+                {
+                    id: 9,
+                    problem: "x(x² + 2x - 5)",
+                    solution: "x³ + 2x² - 5x",
+                    explanation: "Apply the distributive property: multiply each term inside the brackets by x. \nx(x² + 2x - 5) = x × x² + x × 2x + x × (-5) \n= x³ + 2x² - 5x"
+                },
+                {
+                    id: 10,
+                    problem: "(x + 1)(x² - x + 1)",
+                    solution: "x³ + 1",
+                    explanation: "Apply the distributive property: \n(x + 1)(x² - x + 1) = x(x² - x + 1) + 1(x² - x + 1) \n= x³ - x² + x + x² - x + 1 \n= x³ + 1 \nNote: This is a special pattern: (a + b)(a² - ab + b²) = a³ + b³"
+                }
+            ];
+
+            // Get the container where examples will be inserted
+            const examplesContainer = document.getElementById('examples-container');
+            
+            // Generate all examples
+            examples.forEach(example => {
+                // Create the example card
+                const card = document.createElement('div');
+                card.className = 'example-card';
+                
+                // Create the header
+                const header = document.createElement('div');
+                header.className = 'example-header';
+                header.innerHTML = `
+                    <h4 class="mb-0">Example ${example.id}: ${example.problem}</h4>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                `;
+                
+                // Create the content
+                const content = document.createElement('div');
+                content.className = 'example-content';
+                content.innerHTML = `
+                    <div class="problem-box">
+                        <span>${example.problem}</span>
+                    </div>
+                    
+                    <div class="solution-box">
+                        <p class="box-title">Solution:</p>
+                        <p>${example.solution}</p>
+                    </div>
+                    
+                    <div class="explanation-box">
+                        <p class="box-title">Explanation:</p>
+                        <p>${example.explanation.replace(/\n/g, '<br>')}</p>
+                    </div>
+                `;
+                
+                // Append header and content to the card
+                card.appendChild(header);
+                card.appendChild(content);
+                
+                // Append the card to the container
+                examplesContainer.appendChild(card);
+                
+                // Add click event to toggle expansion
+                header.addEventListener('click', () => {
+                    content.classList.toggle('visible');
+                    header.querySelector('.chevron').classList.toggle('down');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
