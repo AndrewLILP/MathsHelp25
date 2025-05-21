@@ -1,7 +1,13 @@
 link to google slides
 https://docs.google.com/presentation/d/1fG9rqx6oA5SeOnryd0OQbpjqura3GngSmObRx8QngOA/edit?usp=sharing
 
-
+Third Party APIs - options needed
+Potentials include:
+- youtube videos
+- TED talks
+- Quizlet, Blooket, Kahoot (quiz software)
+- PDF uploads
+- Geogebra or Graphing Software
 
 ####### May 18
 consider this:
