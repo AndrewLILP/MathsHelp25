@@ -1,3 +1,14 @@
+# Environment Variables (CRITICAL - Contains MongoDB URI, Auth0 secrets)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.staging
+.env.development.local
+.env.test.local
+.env.production.local
+
 # Logs
 logs
 *.log
@@ -72,13 +83,6 @@ web_modules/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
-
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
@@ -134,3 +138,70 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Security-sensitive development utilities
+01backend/utils/testConnection.js
+01backend/utils/testRoutes.js
+01backend/utils/createModels.js
+
+# Temporary auth files (remove when Auth0 is properly configured)
+01backend/middleware/simpleAuth.js
+01backend/middleware/noAuth.js
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Local database files (if using local MongoDB)
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# Certificates and keys
+*.pem
+*.key
+*.crt
+*.cert
+certificates/
+keys/
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Deployment files with sensitive info
+docker-compose.override.yml
+docker-compose.production.yml
+
+# Frontend specific (for when you build React app)
+01frontend/.env
+01frontend/.env.local
+01frontend/.env.development
+01frontend/.env.test
+01frontend/.env.production
+01frontend/build/
+01frontend/dist/
+
+# Sentry Config File
+.sentryclirc
+
+# Bundle analyzer
+bundle-analyzer-report.html
+
+# Package lock files (optional - some teams commit these, some don't)
+# package-lock.json
+# yarn.lock
