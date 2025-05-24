@@ -1,11 +1,14 @@
+// src/pages/SubjectsPage.js
+
 import React from 'react';
+import { Container } from 'react-bootstrap';
+import SubjectGrid from '../components/subjects/SubjectGrid';
 
 const SubjectsPage = () => {
   return (
-    <div>
-      <h2>Mathematics Subjects</h2>
-      <p>Subject grid coming soon...</p>
-    </div>
+    <Container className="py-4">
+      <SubjectGrid />
+    </Container>
   );
 };
 

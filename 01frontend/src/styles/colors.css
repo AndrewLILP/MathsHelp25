@@ -1,0 +1,209 @@
+/* MathsHelp25 Color Scheme */
+
+:root {
+    /* Primary Colors */
+    --mh-purple: #6f42c1;
+    --mh-purple-light: #8e5cd6;
+    --mh-purple-dark: #5a359e;
+    --mh-purple-ultra-light: rgba(111, 66, 193, 0.1);
+    --mh-purple-soft: rgba(111, 66, 193, 0.2);
+  
+    /* Gold Colors */
+    --mh-gold: #ffd700;
+    --mh-gold-light: #ffdf4d;
+    --mh-gold-dark: #ccac00;
+    --mh-gold-ultra-light: rgba(255, 215, 0, 0.1);
+    --mh-gold-soft: rgba(255, 215, 0, 0.2);
+  
+    /* Sky Blue Colors */
+    --mh-sky-blue: #87ceeb;
+    --mh-sky-blue-light: #a5d9f0;
+    --mh-sky-blue-dark: #6bb6cc;
+    --mh-sky-blue-ultra-light: rgba(135, 206, 235, 0.1);
+    --mh-sky-blue-soft: rgba(135, 206, 235, 0.2);
+  
+    /* Black & Grays */
+    --mh-black: #1a1a1a;
+    --mh-black-light: #333333;
+    --mh-black-soft: #555555;
+    --mh-gray: #6c757d;
+    --mh-gray-light: #e9ecef;
+    --mh-white: #ffffff;
+  
+    /* Semantic Colors (using our palette) */
+    --mh-primary: var(--mh-purple);
+    --mh-secondary: var(--mh-sky-blue);
+    --mh-accent: var(--mh-gold);
+    --mh-text: var(--mh-black);
+    --mh-background: var(--mh-white);
+  
+    /* Subject Category Colors */
+    --mh-primary-subject: var(--mh-sky-blue);      /* Primary Mathematics */
+    --mh-secondary-subject: var(--mh-purple);      /* Secondary Mathematics */
+    --mh-advanced-subject: var(--mh-gold);         /* Advanced Mathematics */
+  
+    /* Difficulty Colors */
+    --mh-foundation: #28a745;                      /* Green for Foundation */
+    --mh-developing: var(--mh-sky-blue);           /* Sky Blue for Developing */
+    --mh-proficient: var(--mh-gold);               /* Gold for Proficient */
+    --mh-advanced: var(--mh-purple);               /* Purple for Advanced */
+  
+    /* Interactive States */
+    --mh-hover-purple: rgba(111, 66, 193, 0.8);
+    --mh-hover-gold: rgba(255, 215, 0, 0.8);
+    --mh-hover-sky-blue: rgba(135, 206, 235, 0.8);
+    --mh-focus-ring: rgba(111, 66, 193, 0.25);
+  }
+  
+  /* Bootstrap Override Classes */
+  .btn-mh-purple {
+    background-color: var(--mh-purple);
+    border-color: var(--mh-purple);
+    color: white;
+  }
+  
+  .btn-mh-purple:hover {
+    background-color: var(--mh-purple-dark);
+    border-color: var(--mh-purple-dark);
+  }
+  
+  .btn-mh-gold {
+    background-color: var(--mh-gold);
+    border-color: var(--mh-gold);
+    color: var(--mh-black);
+  }
+  
+  .btn-mh-gold:hover {
+    background-color: var(--mh-gold-dark);
+    border-color: var(--mh-gold-dark);
+  }
+  
+  .btn-mh-sky-blue {
+    background-color: var(--mh-sky-blue);
+    border-color: var(--mh-sky-blue);
+    color: var(--mh-black);
+  }
+  
+  .btn-mh-sky-blue:hover {
+    background-color: var(--mh-sky-blue-dark);
+    border-color: var(--mh-sky-blue-dark);
+  }
+  
+  /* Text Colors */
+  .text-mh-purple { color: var(--mh-purple) !important; }
+  .text-mh-gold { color: var(--mh-gold) !important; }
+  .text-mh-sky-blue { color: var(--mh-sky-blue) !important; }
+  .text-mh-black { color: var(--mh-black) !important; }
+  
+  /* Background Colors */
+  .bg-mh-purple { background-color: var(--mh-purple) !important; }
+  .bg-mh-gold { background-color: var(--mh-gold) !important; }
+  .bg-mh-sky-blue { background-color: var(--mh-sky-blue) !important; }
+  .bg-mh-black { background-color: var(--mh-black) !important; }
+  
+  .bg-mh-purple-light { background-color: var(--mh-purple-ultra-light) !important; }
+  .bg-mh-gold-light { background-color: var(--mh-gold-ultra-light) !important; }
+  .bg-mh-sky-blue-light { background-color: var(--mh-sky-blue-ultra-light) !important; }
+  
+  /* Border Colors */
+  .border-mh-purple { border-color: var(--mh-purple) !important; }
+  .border-mh-gold { border-color: var(--mh-gold) !important; }
+  .border-mh-sky-blue { border-color: var(--mh-sky-blue) !important; }
+  
+  /* Card Variants */
+  .card-mh-purple {
+    border-left: 4px solid var(--mh-purple);
+    background: linear-gradient(135deg, var(--mh-purple-ultra-light), white);
+  }
+  
+  .card-mh-gold {
+    border-left: 4px solid var(--mh-gold);
+    background: linear-gradient(135deg, var(--mh-gold-ultra-light), white);
+  }
+  
+  .card-mh-sky-blue {
+    border-left: 4px solid var(--mh-sky-blue);
+    background: linear-gradient(135deg, var(--mh-sky-blue-ultra-light), white);
+  }
+  
+  /* Hover Effects */
+  .hover-mh-purple:hover {
+    background-color: var(--mh-purple-ultra-light);
+    border-color: var(--mh-purple);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(111, 66, 193, 0.3);
+  }
+  
+  .hover-mh-gold:hover {
+    background-color: var(--mh-gold-ultra-light);
+    border-color: var(--mh-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+  }
+  
+  .hover-mh-sky-blue:hover {
+    background-color: var(--mh-sky-blue-ultra-light);
+    border-color: var(--mh-sky-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(135, 206, 235, 0.3);
+  }
+  
+  /* Gradient Backgrounds */
+  .gradient-purple-gold {
+    background: linear-gradient(135deg, var(--mh-purple), var(--mh-gold));
+  }
+  
+  .gradient-sky-blue-purple {
+    background: linear-gradient(135deg, var(--mh-sky-blue), var(--mh-purple));
+  }
+  
+  .gradient-gold-sky-blue {
+    background: linear-gradient(135deg, var(--mh-gold), var(--mh-sky-blue));
+  }
+  
+  /* Subject Category Specific Styles */
+  .subject-primary {
+    border-left-color: var(--mh-primary-subject);
+    background: linear-gradient(135deg, var(--mh-sky-blue-ultra-light), white);
+  }
+  
+  .subject-secondary {
+    border-left-color: var(--mh-secondary-subject);
+    background: linear-gradient(135deg, var(--mh-purple-ultra-light), white);
+  }
+  
+  .subject-advanced {
+    border-left-color: var(--mh-advanced-subject);
+    background: linear-gradient(135deg, var(--mh-gold-ultra-light), white);
+  }
+  
+  /* Animation Classes */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .animate-scale-up {
+    transition: all 0.3s ease;
+  }
+  
+  .animate-scale-up:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Custom Progress Bars */
+  .progress-mh-purple .progress-bar {
+    background-color: var(--mh-purple);
+  }
+  
+  .progress-mh-gold .progress-bar {
+    background-color: var(--mh-gold);
+  }
+  
+  .progress-mh-sky-blue .progress-bar {
+    background-color: var(--mh-sky-blue);
+  }
