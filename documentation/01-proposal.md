@@ -56,7 +56,7 @@ High school teachers often struggle with:
 - **Framework**: React.js
 - **State Management**: Context API or Redux (if complexity requires) - NOT SUre - CHECK this 
 - **Routing**: React Router for navigation
-- **UI Components**: Tailwind CSS for styling - Maybe just CSS
+- **UI Components**: Bootsrap/ CSS for styling - Maybe just CSS
 - **HTTP Client**: Axios for API requests
 
 #### Backend
@@ -70,9 +70,8 @@ High school teachers often struggle with:
 - **Schema Design**: Mongoose ODM for data modeling
 
 #### Deployment
-- **Frontend Hosting**: Personal website (static build files) - I have a basic website that I might be able to use
+- **Frontend Hosting**: Render / Personal website (static build files) - I have a basic website that I might be able to use
 - **Backend Hosting**: Render.com or similar service
-- **CI/CD**: GitHub Actions for automated deployment - NOT sure about this 
 
 ### Project Phases
 

@@ -1,9 +1,24 @@
 link to google slides
 https://docs.google.com/presentation/d/1fG9rqx6oA5SeOnryd0OQbpjqura3GngSmObRx8QngOA/edit?usp=sharing
 
+####### May 22
+Step 1 
+Log in functionality for front-end and back-end
+
+tailwind info in video at 27 minutes
+
+I will probably start with React Bootstrap and evaluate the feasibility of migrating to Tailwing in week 3. 
+
+
+
+
+
+
+####### May 21
+
 Third Party APIs - options needed
 Potentials include:
-- youtube videos
+- youtube videos - combine with search feature
 - TED talks
 - Quizlet, Blooket, Kahoot (quiz software)
 - PDF uploads
