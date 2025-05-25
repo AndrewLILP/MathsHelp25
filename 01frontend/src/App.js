@@ -6,10 +6,12 @@ import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import SubjectsPage from './pages/SubjectsPage';
 import SubjectDetailPage from './pages/SubjectDetailPage';
+import ActivitiesPage from './pages/ActivitiesPage';
 import { useAuth0 } from '@auth0/auth0-react';
 
 // Import Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/colors.css';
 import './App.css';
 
 function AppContent() {
@@ -33,6 +35,7 @@ function AppContent() {
           <Route path="/" element={<Home />} />
           <Route path="/subjects" element={<SubjectsPage />} />
           <Route path="/subjects/:subjectId" element={<SubjectDetailPage />} />
+          <Route path="/topics/:topicId/activities" element={<ActivitiesPage />} />
           <Route path="/dashboard" element={<div><h2>Dashboard Coming Soon</h2></div>} />
           <Route path="/profile" element={<div><h2>Profile Coming Soon</h2></div>} />
         </Routes>

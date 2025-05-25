@@ -12,8 +12,8 @@ const Navigation = () => {
       className="shadow-sm"
       expand="lg"
       style={{
-        background: 'linear-gradient(135deg, var(--mh-purple), var(--mh-purple-dark))',
-        borderBottom: '3px solid var(--mh-gold)'
+        background: 'linear-gradient(135deg, #6f42c1, #5a359e)',
+        borderBottom: '3px solid #ffd700'
       }}
       variant="dark"
     >
@@ -21,27 +21,27 @@ const Navigation = () => {
         <Navbar.Brand 
           as={Link} 
           to="/" 
-          className="d-flex align-items-center fw-bold"
-          style={{ fontSize: '1.5rem' }}
+          className="d-flex align-items-center fw-bold text-white"
+          style={{ fontSize: '1.5rem', textDecoration: 'none' }}
         >
           <div 
             className="d-flex align-items-center justify-content-center me-3 rounded-circle"
             style={{
               width: '40px',
               height: '40px',
-              background: 'var(--mh-gold)',
-              color: 'var(--mh-black)'
+              background: '#ffd700',
+              color: '#1a1a1a'
             }}
           >
             <FaCalculator size={20} />
           </div>
-          <span style={{ color: 'var(--mh-white)' }}>MathsHelp</span>
-          <span style={{ color: 'var(--mh-gold)' }}>25</span>
+          <span style={{ color: 'white' }}>MathsHelp</span>
+          <span style={{ color: '#ffd700' }}>25</span>
           <Badge 
             className="ms-2"
             style={{
-              backgroundColor: 'var(--mh-sky-blue)',
-              color: 'var(--mh-black)',
+              backgroundColor: '#87ceeb',
+              color: '#1a1a1a',
               fontSize: '0.6rem'
             }}
           >
@@ -56,8 +56,11 @@ const Navigation = () => {
               as={Link} 
               to="/" 
               className="text-white d-flex align-items-center px-3"
-              style={{ transition: 'all 0.3s ease' }}
-              onMouseEnter={(e) => e.target.style.color = 'var(--mh-gold)'}
+              style={{ 
+                transition: 'all 0.3s ease',
+                textDecoration: 'none'
+              }}
+              onMouseEnter={(e) => e.target.style.color = '#ffd700'}
               onMouseLeave={(e) => e.target.style.color = 'white'}
             >
               <FaHome className="me-2" />
@@ -68,8 +71,11 @@ const Navigation = () => {
               as={Link} 
               to="/subjects" 
               className="text-white d-flex align-items-center px-3"
-              style={{ transition: 'all 0.3s ease' }}
-              onMouseEnter={(e) => e.target.style.color = 'var(--mh-sky-blue)'}
+              style={{ 
+                transition: 'all 0.3s ease',
+                textDecoration: 'none'
+              }}
+              onMouseEnter={(e) => e.target.style.color = '#87ceeb'}
               onMouseLeave={(e) => e.target.style.color = 'white'}
             >
               <FaBook className="me-2" />
@@ -81,8 +87,11 @@ const Navigation = () => {
                 as={Link} 
                 to="/dashboard" 
                 className="text-white d-flex align-items-center px-3"
-                style={{ transition: 'all 0.3s ease' }}
-                onMouseEnter={(e) => e.target.style.color = 'var(--mh-gold)'}
+                style={{ 
+                  transition: 'all 0.3s ease',
+                  textDecoration: 'none'
+                }}
+                onMouseEnter={(e) => e.target.style.color = '#ffd700'}
                 onMouseLeave={(e) => e.target.style.color = 'white'}
               >
                 <FaChartBar className="me-2" />
@@ -98,8 +107,11 @@ const Navigation = () => {
                   as={Link} 
                   to="/profile" 
                   className="d-flex align-items-center me-3 text-white"
-                  style={{ transition: 'all 0.3s ease' }}
-                  onMouseEnter={(e) => e.target.style.color = 'var(--mh-sky-blue)'}
+                  style={{ 
+                    transition: 'all 0.3s ease',
+                    textDecoration: 'none'
+                  }}
+                  onMouseEnter={(e) => e.target.style.color = '#87ceeb'}
                   onMouseLeave={(e) => e.target.style.color = 'white'}
                 >
                   {user?.picture ? (
@@ -109,7 +121,7 @@ const Navigation = () => {
                       className="rounded-circle me-2"
                       width="30"
                       height="30"
-                      style={{ border: '2px solid var(--mh-gold)' }}
+                      style={{ border: '2px solid #ffd700' }}
                     />
                   ) : (
                     <div 
@@ -117,8 +129,8 @@ const Navigation = () => {
                       style={{
                         width: '30px',
                         height: '30px',
-                        backgroundColor: 'var(--mh-gold)',
-                        color: 'var(--mh-black)'
+                        backgroundColor: '#ffd700',
+                        color: '#1a1a1a'
                       }}
                     >
                       <FaUser size={14} />
@@ -132,17 +144,17 @@ const Navigation = () => {
                   className="btn btn-sm"
                   style={{
                     backgroundColor: 'transparent',
-                    border: '2px solid var(--mh-gold)',
-                    color: 'var(--mh-gold)',
+                    border: '2px solid #ffd700',
+                    color: '#ffd700',
                     transition: 'all 0.3s ease'
                   }}
                   onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = 'var(--mh-gold)';
-                    e.target.style.color = 'var(--mh-black)';
+                    e.target.style.backgroundColor = '#ffd700';
+                    e.target.style.color = '#1a1a1a';
                   }}
                   onMouseLeave={(e) => {
                     e.target.style.backgroundColor = 'transparent';
-                    e.target.style.color = 'var(--mh-gold)';
+                    e.target.style.color = '#ffd700';
                   }}
                   onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
                 >
@@ -153,18 +165,18 @@ const Navigation = () => {
               <button 
                 className="btn btn-sm fw-bold"
                 style={{
-                  backgroundColor: 'var(--mh-gold)',
-                  border: '2px solid var(--mh-gold)',
-                  color: 'var(--mh-black)',
+                  backgroundColor: '#ffd700',
+                  border: '2px solid #ffd700',
+                  color: '#1a1a1a',
                   transition: 'all 0.3s ease'
                 }}
                 onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = 'var(--mh-sky-blue)';
-                  e.target.style.borderColor = 'var(--mh-sky-blue)';
+                  e.target.style.backgroundColor = '#87ceeb';
+                  e.target.style.borderColor = '#87ceeb';
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = 'var(--mh-gold)';
-                  e.target.style.borderColor = 'var(--mh-gold)';
+                  e.target.style.backgroundColor = '#ffd700';
+                  e.target.style.borderColor = '#ffd700';
                 }}
                 onClick={() => loginWithRedirect()}
               >

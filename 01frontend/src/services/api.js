@@ -55,6 +55,7 @@ export const apiService = {
   getActivities: (topicId) => api.get(`/activities/topic/${topicId}`),
   getActivity: (id) => api.get(`/activities/${id}`),
   getAllActivities: (params = {}) => api.get('/activities', { params }),
+  createActivity: (activityData) => api.post('/activities', activityData),
 
   // Server health
   healthCheck: () => api.get('../'),
