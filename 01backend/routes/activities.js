@@ -1,6 +1,10 @@
+// 🔧 BACKEND FILE: 01backend/routes/activities.js
+// ⚠️ CHANGE REQUIRED: Update line 3 to import from 'auth' instead of 'auth'
+
 const express = require('express');
 const router = express.Router();
-const { optionalAuth, getOptionalUser, checkJwt, getOrCreateUser, requireRole } = require('../middleware/noAuth');
+// 🚨 CHANGE THIS LINE - Replace 'auth' with 'auth':
+const { optionalAuth, getOptionalUser, checkJwt, getOrCreateUser, requireRole } = require('../middleware/auth');
 const Activity = require('../models/Activity');
 const Topic = require('../models/Topic');
 const User = require('../models/User');

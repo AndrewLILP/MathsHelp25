@@ -7,13 +7,19 @@ require('dotenv').config();
 
 const app = express();
 
+// Trust proxy for rate limiting (fixes the X-Forwarded-For error)
+app.set('trust proxy', 1);
+
 // Security middleware
 app.use(helmet());
 
-// Rate limiting
+// Rate limiting with proxy trust
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  max: 100, // limit each IP to 100 requests per windowMs
+  trustProxy: true, // Trust the proxy
+  standardHeaders: true,
+  legacyHeaders: false
 });
 app.use(limiter);
 
@@ -27,7 +33,7 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// MongoDB connection (removed deprecated options)
+// MongoDB connection
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/mathshelp25')
 .then(() => console.log('✅ MongoDB Connected'))
 .catch(err => console.error('❌ MongoDB Connection Error:', err));
@@ -37,6 +43,7 @@ app.get('/', (req, res) => {
   res.json({ 
     message: 'MathsHelp25 API Server Running!',
     version: '1.0.0',
+    auth: 'Auth0 JWT Enabled',
     endpoints: {
       subjects: '/api/subjects',
       yearGroups: '/api/year-groups',
@@ -47,7 +54,7 @@ app.get('/', (req, res) => {
   });
 });
 
-// API Routes (will be implemented next)
+// API Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/subjects', require('./routes/subjects'));
 app.use('/api/year-groups', require('./routes/yearGroups'));

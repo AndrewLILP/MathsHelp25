@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { optionalAuth, getOptionalUser, checkJwt, getOrCreateUser, requireRole } = require('../middleware/noAuth');
+const { optionalAuth, getOptionalUser, checkJwt, getOrCreateUser, requireRole } = require('../middleware/auth');
 const Topic = require('../models/Topic');
 const YearGroup = require('../models/YearGroup');
 const Activity = require('../models/Activity');
