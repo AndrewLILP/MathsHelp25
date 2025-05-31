@@ -1,17 +1,25 @@
 link to google slides
 https://docs.google.com/presentation/d/1fG9rqx6oA5SeOnryd0OQbpjqura3GngSmObRx8QngOA/edit?usp=sharing
 
+
+####### May 31
+To do, MUST:
+- finish Auth0 implemention
+- integrate a third party API (graph from Desmos or Geogebra)
+
+To do, NICE:
+- fix up UI - add a footer to fix scroll problem
+
+
+
+
 ####### May 22
 Step 1 
 Log in functionality for front-end and back-end
 
-tailwind info in video at 27 minutes
+tailwind info in video at 27 minutes - Bootstrap implemented
 
 I will probably start with React Bootstrap and evaluate the feasibility of migrating to Tailwing in week 3. 
-
-
-
-
 
 
 ####### May 21

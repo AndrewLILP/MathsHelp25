@@ -1,8 +1,10 @@
+// File: src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import Auth0ProviderWithHistory from './auth/Auth0ProviderWithHistory';
-import Navigation from './components/Navigation';
+import AuthWrapper from './components/AuthWrapper';
+import RoleBasedNavigation from './components/RoleBasedNavigation';
 import Home from './pages/Home';
 import SubjectsPage from './pages/SubjectsPage';
 import SubjectDetailPage from './pages/SubjectDetailPage';
@@ -29,7 +31,7 @@ function AppContent() {
 
   return (
     <>
-      <Navigation />
+      <RoleBasedNavigation />
       <Container className="mt-4">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -49,7 +51,9 @@ function App() {
     <Router>
       <Auth0ProviderWithHistory>
         <div className="App">
-          <AppContent />
+          <AuthWrapper>
+            <AppContent />
+          </AuthWrapper>
         </div>
       </Auth0ProviderWithHistory>
     </Router>

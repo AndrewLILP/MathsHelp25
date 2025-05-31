@@ -1,3 +1,6 @@
+// /Users/andrewleary/Documents/CS-Capstone-Github/MathsHelp25/01frontend/src/components/activities/ActivityCard.js
+
+
 import React from 'react';
 import { Card, Badge, Button } from 'react-bootstrap';
 import { 
