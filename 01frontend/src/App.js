@@ -1,4 +1,4 @@
-// File: src/App.js
+// File: src/App.js - Updated with topic detail route
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
@@ -9,6 +9,7 @@ import RoleBasedNavigation from './components/RoleBasedNavigation';
 import Home from './pages/Home';
 import SubjectsPage from './pages/SubjectsPage';
 import SubjectDetailPage from './pages/SubjectDetailPage';
+import TopicDetailPage from './pages/TopicDetailPage'; // NEW
 import ActivitiesPage from './pages/ActivitiesPage';
 import CreateActivityPage from './pages/CreateActivityPage';
 
@@ -38,6 +39,7 @@ function AppContent() {
           <Route path="/" element={<Home />} />
           <Route path="/subjects" element={<SubjectsPage />} />
           <Route path="/subjects/:subjectId" element={<SubjectDetailPage />} />
+          <Route path="/topics/:topicId" element={<TopicDetailPage />} /> {/* NEW ROUTE */}
           <Route path="/topics/:topicId/activities" element={<ActivitiesPage />} />
           <Route path="/create/activity" element={<CreateActivityPage />} />
           <Route path="/dashboard" element={<div><h2>Dashboard Coming Soon</h2></div>} />

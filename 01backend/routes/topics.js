@@ -1,3 +1,6 @@
+// File: 01backend/routes/topics.js
+// Complete topics routes with GeoGebra interactive configuration support
+
 const express = require('express');
 const router = express.Router();
 const { optionalAuth, getOptionalUser, checkJwt, getOrCreateUser, requireRole } = require('../middleware/auth');
@@ -368,5 +371,128 @@ router.get('/popular', optionalAuth, getOptionalUser, async (req, res) => {
     });
   }
 });
+
+// @route   GET /api/topics/:id/interactive-config
+// @desc    Get interactive tool configuration for a topic
+// @access  Public
+router.get('/:id/interactive-config', optionalAuth, getOptionalUser, async (req, res) => {
+  try {
+    const topic = await Topic.findById(req.params.id);
+    
+    if (!topic) {
+      return res.status(404).json({
+        success: false,
+        message: 'Topic not found'
+      });
+    }
+
+    const config = getInteractiveConfig(topic.name);
+    
+    res.json({
+      success: true,
+      data: config
+    });
+  } catch (error) {
+    console.error('Error fetching interactive config:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching interactive configuration'
+    });
+  }
+});
+
+// Helper function to determine interactive tool configuration based on topic name
+function getInteractiveConfig(topicName) {
+  const name = topicName.toLowerCase();
+  
+  if (name.includes('quadratic')) {
+    return {
+      type: 'quadratic',
+      title: 'Quadratic Functions Explorer',
+      description: 'Explore how coefficients affect parabolas: y = ax² + bx + c',
+      geogebraApp: 'graphing',
+      hasSliders: true,
+      parameters: ['a', 'b', 'c'],
+      defaultFunction: 'f(x) = a*x^2 + b*x + c',
+      instructions: [
+        'Adjust slider "a" to change the width and direction of the parabola',
+        'Adjust slider "b" to shift the parabola horizontally',
+        'Adjust slider "c" to shift the parabola vertically',
+        'Watch how the vertex point moves as you change the parameters'
+      ]
+    };
+  }
+  
+  if (name.includes('linear')) {
+    return {
+      type: 'linear',
+      title: 'Linear Functions Explorer',
+      description: 'Understand slope and y-intercept: y = mx + b',
+      geogebraApp: 'graphing',
+      hasSliders: true,
+      parameters: ['m', 'b'],
+      defaultFunction: 'f(x) = m*x + b',
+      instructions: [
+        'Adjust slider "m" to change the slope of the line',
+        'Adjust slider "b" to change the y-intercept',
+        'Notice how slope affects the steepness of the line',
+        'Observe the y-intercept as the point where the line crosses the y-axis'
+      ]
+    };
+  }
+
+  if (name.includes('trigonometry') || name.includes('sine') || name.includes('cosine')) {
+    return {
+      type: 'trigonometric',
+      title: 'Trigonometric Functions Explorer',
+      description: 'Explore amplitude, frequency, and phase: y = A*sin(Bx + C)',
+      geogebraApp: 'graphing',
+      hasSliders: true,
+      parameters: ['A', 'B', 'C'],
+      defaultFunction: 'f(x) = A*sin(B*x + C)',
+      instructions: [
+        'Adjust "A" to change the amplitude (height) of the wave',
+        'Adjust "B" to change the frequency (how compressed the wave is)',
+        'Adjust "C" to shift the wave horizontally (phase shift)',
+        'Compare with the basic sine function to see the differences'
+      ]
+    };
+  }
+
+  if (name.includes('circle') || name.includes('geometry')) {
+    return {
+      type: 'geometry',
+      title: 'Geometric Explorer',
+      description: 'Explore geometric shapes and relationships',
+      geogebraApp: 'geometry',
+      hasSliders: true,
+      parameters: ['r'],
+      defaultFunction: 'Circle with radius r',
+      instructions: [
+        'Adjust "r" to change the radius of the circle',
+        'Drag points around the circle to explore relationships',
+        'Use tools to measure angles and distances',
+        'Observe geometric properties and theorems'
+      ]
+    };
+  }
+
+  // Default configuration for any other topics
+  return {
+    type: 'general',
+    title: 'Mathematical Explorer',
+    description: 'Interactive mathematical visualization',
+    geogebraApp: 'graphing',
+    hasSliders: true,
+    parameters: ['a', 'b'],
+    defaultFunction: 'f(x) = a*x + b',
+    instructions: [
+      'Use the sliders to adjust parameters',
+      'Explore how changes affect the mathematical relationships',
+      'Try different values and observe patterns',
+      'Use the tools to investigate mathematical properties'
+    ]
+  };
+}
 
 module.exports = router;
