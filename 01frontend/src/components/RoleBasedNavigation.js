@@ -1,4 +1,4 @@
-// File: src/components/RoleBasedNavigation.js
+// File: 01frontend/src/components/RoleBasedNavigation.js
 import React from 'react';
 import { Navbar, Nav, NavDropdown, Container, Badge } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';

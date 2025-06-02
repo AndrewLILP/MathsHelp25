@@ -1,4 +1,4 @@
-// src/components/subjects/SubjectGrid.js
+// File:  01frontend/src/components/subjects/SubjectGrid.js
 
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Spinner, Alert, ButtonGroup, Button } from 'react-bootstrap';

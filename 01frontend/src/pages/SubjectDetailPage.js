@@ -1,3 +1,5 @@
+// File: 01frontend/src/pages/SubjectDetailPage.js
+
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Card, Badge, Spinner, Alert, Button } from 'react-bootstrap';

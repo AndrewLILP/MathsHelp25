@@ -1,3 +1,5 @@
+// File: 01frontend/src/components/subjects/SubjectCard.js
+
 import React from 'react';
 import { Card, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';

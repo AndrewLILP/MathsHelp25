@@ -38,9 +38,8 @@ A website for Maths/Computing teachers
 🔗 **API:** [https://mathshelp25-backend.render.com](https://mathshelp25-backend.render.com)
 
 ### **Demo Accounts**
-- **Teacher:** `teacher@mathshelp25.com` / `demo123`
-- **Student:** `student@mathshelp25.com` / `demo123`
-- **Admin:** `admin@mathshelp25.com` / `demo123`
+- **Teacher:** `teacher@mathshelp25.com` / `Demo123!`
+- **Student:** `student@mathshelp25.com` / `Demo123!`
 
 ## 🏗️ **Architecture**
 
@@ -221,7 +220,7 @@ MathsHelp25/
 │   │   └── yearGroups.js
 │   ├── middleware/           # Custom middleware
 │   │   ├── auth.js          # JWT verification
-│   │   └── validation.js    # Input validation
+│   │   └── validation.js    # Input validation //NO
 │   ├── utils/               # Utility functions
 │   ├── server.js            # Main server file
 │   ├── package.json

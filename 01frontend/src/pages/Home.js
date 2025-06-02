@@ -1,3 +1,5 @@
+// File: 01frontend/src/pages/Home.js
+
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';

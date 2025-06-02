@@ -1,4 +1,4 @@
-// src/pages/SubjectsPage.js
+// File: 01frontend/src/pages/SubjectsPage.js
 
 import React from 'react';
 import { Container } from 'react-bootstrap';

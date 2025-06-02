@@ -1,3 +1,5 @@
+// File: 01backend/models/Topic.js
+
 const mongoose = require('mongoose');
 
 const topicSchema = new mongoose.Schema({

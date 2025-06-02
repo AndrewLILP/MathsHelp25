@@ -1,4 +1,4 @@
-// /Users/andrewleary/Documents/CS-Capstone-Github/MathsHelp25/01frontend/src/components/activities/ActivityCard.js
+// File: 01frontend/src/components/activities/ActivityCard.js
 
 
 import React from 'react';

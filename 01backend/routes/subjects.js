@@ -1,3 +1,5 @@
+// File: 01backend/routes/subjects.js
+
 const express = require('express');
 const router = express.Router();
 const { optionalAuth, getOptionalUser, checkJwt, getOrCreateUser, requireRole } = require('../middleware/auth');

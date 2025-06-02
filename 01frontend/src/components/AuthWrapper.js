@@ -1,4 +1,4 @@
-// File: src/components/AuthWrapper.js
+// File: 01frontend/src/components/AuthWrapper.js
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Container, Spinner } from 'react-bootstrap';

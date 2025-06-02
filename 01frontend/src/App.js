@@ -1,4 +1,4 @@
-// File: src/App.js - Updated with topic detail route
+// File: 01frontend/src/App.js - Updated with topic detail route
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';

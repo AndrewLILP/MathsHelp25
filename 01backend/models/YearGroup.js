@@ -1,3 +1,5 @@
+// File: 01backend/models/YearGroup.js
+
 const mongoose = require('mongoose');
 
 const yearGroupSchema = new mongoose.Schema({
