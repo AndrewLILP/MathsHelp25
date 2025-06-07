@@ -199,7 +199,12 @@ const RoleBasedNavigation = () => {
                   <NavDropdown.Divider />
                   <NavDropdown.Item as="div" className="p-0">
                     <div className="px-3 py-2">
-                      <LogoutButton />
+                      {/* FIXED: Changed variant to "outline-danger" for visibility on light dropdown background */}
+                      <LogoutButton 
+                        variant="outline-danger" 
+                        size="sm"
+                        className="w-100"
+                      />
                     </div>
                   </NavDropdown.Item>
                 </NavDropdown>
