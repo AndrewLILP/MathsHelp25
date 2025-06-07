@@ -1,11 +1,12 @@
 // File: 01backend/middleware/auth.js
-// DEBUG VERSION - Shows detailed token flow
+// FIXED VERSION - Gets user profile from Auth0 userinfo endpoint
 
 const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
+const axios = require('axios'); // Add this import
 const User = require('../models/User');
 
-console.log('🔐 Loading DEBUG Auth0 JWT middleware...');
+console.log('🔐 Loading FIXED Auth0 JWT middleware...');
 
 // Validate environment variables
 if (!process.env.AUTH0_DOMAIN) {
@@ -76,12 +77,6 @@ function checkJwt(req, res, next) {
   }, (err, decoded) => {
     if (err) {
       console.error('❌ JWT verification failed:', err.message);
-      console.error('❌ Error details:', {
-        name: err.name,
-        message: err.message,
-        audience: err.audience,
-        issuer: err.issuer
-      });
       return res.status(401).json({
         success: false,
         message: 'Invalid or expired token',
@@ -92,22 +87,40 @@ function checkJwt(req, res, next) {
 
     console.log('✅ JWT verified successfully!');
     console.log('👤 User subject:', decoded.sub);
-    console.log('📧 User email:', decoded.email);
-    console.log('🎯 Token audience:', decoded.aud);
-    console.log('🏢 Token issuer:', decoded.iss);
     
     req.auth0User = decoded;
+    req.auth0Token = token; // Store token for userinfo call
     next();
   });
 }
 
-// Get or create user middleware
+// FIXED: Get user profile from Auth0 userinfo endpoint
+async function getUserInfoFromAuth0(token) {
+  try {
+    console.log('🔍 Getting user profile from Auth0 userinfo...');
+    
+    const response = await axios.get(`https://${process.env.AUTH0_DOMAIN}/userinfo`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      timeout: 5000
+    });
+    
+    console.log('✅ Got user profile from Auth0');
+    return response.data;
+  } catch (error) {
+    console.error('❌ Error getting user info from Auth0:', error.message);
+    throw error;
+  }
+}
+
+// FIXED: Get or create user middleware with userinfo call
 async function getOrCreateUser(req, res, next) {
   console.log('\n🔍 getOrCreateUser called');
   
   try {
-    if (!req.auth0User) {
-      console.log('❌ No auth0User found');
+    if (!req.auth0User || !req.auth0Token) {
+      console.log('❌ No auth0User or token found');
       return res.status(401).json({
         success: false,
         message: 'Authentication required',
@@ -115,27 +128,70 @@ async function getOrCreateUser(req, res, next) {
       });
     }
 
-    const { sub: auth0Id, email, name, picture } = req.auth0User;
+    const { sub: auth0Id } = req.auth0User;
     console.log('🔍 Looking for user with auth0Id:', auth0Id);
+
+    // Get user profile from Auth0 userinfo endpoint
+    let userProfile;
+    try {
+      userProfile = await getUserInfoFromAuth0(req.auth0Token);
+      console.log('📧 Email from userinfo:', userProfile.email);
+      console.log('👤 Name from userinfo:', userProfile.name);
+    } catch (error) {
+      console.error('❌ Failed to get user profile from Auth0:', error.message);
+      return res.status(500).json({
+        success: false,
+        message: 'Error getting user profile',
+        code: 'USERINFO_ERROR'
+      });
+    }
 
     // Find existing user or create new one
     let user = await User.findOne({ auth0Id });
 
     if (!user) {
       console.log('👤 Creating new user...');
+      
+      // Use data from userinfo endpoint
+      const email = userProfile.email;
+      const name = userProfile.name || userProfile.nickname || email?.split('@')[0] || 'MathsHelp25 User';
+      const picture = userProfile.picture || '';
+
+      if (!email) {
+        console.error('❌ No email found in user profile');
+        return res.status(400).json({
+          success: false,
+          message: 'User email is required',
+          code: 'MISSING_EMAIL'
+        });
+      }
+
       // Create new user
       user = new User({
         auth0Id,
         email,
-        name: name || email.split('@')[0],
-        profileImage: picture || '',
+        name,
+        profileImage: picture,
         role: 'teacher', // Default role - can be changed later
         lastLoginAt: new Date()
       });
+      
       await user.save();
       console.log('✅ Created new user:', email, 'with role:', user.role);
     } else {
-      console.log('✅ Found existing user:', email, 'role:', user.role);
+      console.log('✅ Found existing user:', userProfile.email, 'role:', user.role);
+      
+      // Update user profile with latest info from Auth0
+      if (userProfile.email && user.email !== userProfile.email) {
+        user.email = userProfile.email;
+      }
+      if (userProfile.name && user.name !== userProfile.name) {
+        user.name = userProfile.name;
+      }
+      if (userProfile.picture && user.profileImage !== userProfile.picture) {
+        user.profileImage = userProfile.picture;
+      }
+      
       // Update last login
       user.lastLoginAt = new Date();
       await user.save();
@@ -197,6 +253,7 @@ function optionalAuth(req, res, next) {
   if (!token) {
     console.log('🔍 No token in optional auth, continuing...');
     req.auth0User = null;
+    req.auth0Token = null;
     return next();
   }
 
@@ -208,9 +265,11 @@ function optionalAuth(req, res, next) {
     if (err) {
       console.log('🔍 Optional auth failed (continuing):', err.message);
       req.auth0User = null;
+      req.auth0Token = null;
     } else {
       console.log('✅ Optional auth succeeded for:', decoded.sub);
       req.auth0User = decoded;
+      req.auth0Token = token;
     }
     next();
   });
@@ -221,15 +280,25 @@ async function getOptionalUser(req, res, next) {
   console.log('\n🔍 getOptionalUser called');
   
   try {
-    if (!req.auth0User) {
-      console.log('🔍 No auth0User, setting currentUser to null');
+    if (!req.auth0User || !req.auth0Token) {
+      console.log('🔍 No auth0User/token, setting currentUser to null');
+      req.currentUser = null;
+      return next();
+    }
+
+    // Get user profile from Auth0 if we have a token
+    let userProfile;
+    try {
+      userProfile = await getUserInfoFromAuth0(req.auth0Token);
+    } catch (error) {
+      console.log('⚠️ Failed to get userinfo in optional auth:', error.message);
       req.currentUser = null;
       return next();
     }
 
     const user = await User.findOne({ auth0Id: req.auth0User.sub });
     req.currentUser = user;
-    console.log('✅ Optional user set:', user ? user.email : 'null');
+    console.log('✅ Optional user set:', user ? userProfile.email : 'null');
     next();
   } catch (error) {
     console.error('❌ Error in getOptionalUser:', error);
@@ -238,7 +307,7 @@ async function getOptionalUser(req, res, next) {
   }
 }
 
-console.log('✅ DEBUG Auth0 JWT middleware loaded successfully');
+console.log('✅ FIXED Auth0 JWT middleware loaded successfully');
 
 module.exports = {
   checkJwt,
