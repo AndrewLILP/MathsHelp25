@@ -1,4 +1,4 @@
-//01frontend/src/pages/ActivitiesPage.js
+// File: 01frontend/src/pages/ActivitiesPage.js
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';

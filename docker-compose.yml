@@ -1,0 +1,47 @@
+# docker-compose.yml - For local development with Docker
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: mathshelp25-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: mathshelp25
+    volumes:
+      - mongodb_data:/data/db
+
+  backend:
+    build: ./01backend
+    container_name: mathshelp25-backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://admin:password123@mongodb:27017/mathshelp25?authSource=admin
+      - FRONTEND_URL=http://localhost:3000
+    depends_on:
+      - mongodb
+    volumes:
+      - ./01backend:/app
+      - /app/node_modules
+
+  frontend:
+    build: ./01frontend
+    container_name: mathshelp25-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:5000
+    volumes:
+      - ./01frontend:/app
+      - /app/node_modules
+
+volumes:
+  mongodb_data:

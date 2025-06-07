@@ -1,0 +1,43 @@
+# render.yaml - Optional but makes deployment cleaner
+services:
+  - type: web
+    name: mathshelp25-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: cd 01backend && npm install
+    startCommand: cd 01backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: AUTH0_DOMAIN
+        sync: false
+      - key: AUTH0_AUDIENCE
+        sync: false
+      - key: FRONTEND_URL
+        fromService:
+          type: web
+          name: mathshelp25-frontend
+          property: host
+
+  - type: web
+    name: mathshelp25-frontend
+    env: static
+    region: oregon
+    plan: free
+    buildCommand: cd 01frontend && npm install && npm run build
+    staticPublishPath: ./01frontend/build
+    envVars:
+      - key: REACT_APP_AUTH0_DOMAIN
+        sync: false
+      - key: REACT_APP_AUTH0_CLIENT_ID
+        sync: false
+      - key: REACT_APP_AUTH0_AUDIENCE
+        sync: false
+      - key: REACT_APP_API_URL
+        fromService:
+          type: web
+          name: mathshelp25-backend
+          property: host

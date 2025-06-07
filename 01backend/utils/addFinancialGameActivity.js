@@ -1,3 +1,5 @@
+// File: 01backend/utils/addFinancialGameActivity.js
+
 // utils/addFinancialGameActivity.js
 require('dotenv').config();
 const mongoose = require('mongoose');
