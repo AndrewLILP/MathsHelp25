@@ -1,9 +1,9 @@
-// File: 01backend/middleware/auth.js
-// FIXED VERSION - Gets user profile from Auth0 userinfo endpoint
+// File: 01backend/middleware/auth.js - FIXED VERSION
+// Removed localStorage dependency, improved role assignment
 
 const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
-const axios = require('axios'); // Add this import
+const axios = require('axios');
 const User = require('../models/User');
 
 console.log('🔐 Loading FIXED Auth0 JWT middleware...');
@@ -89,12 +89,12 @@ function checkJwt(req, res, next) {
     console.log('👤 User subject:', decoded.sub);
     
     req.auth0User = decoded;
-    req.auth0Token = token; // Store token for userinfo call
+    req.auth0Token = token;
     next();
   });
 }
 
-// FIXED: Get user profile from Auth0 userinfo endpoint
+// Get user profile from Auth0 userinfo endpoint
 async function getUserInfoFromAuth0(token) {
   try {
     console.log('🔍 Getting user profile from Auth0 userinfo...');
@@ -114,7 +114,32 @@ async function getUserInfoFromAuth0(token) {
   }
 }
 
-// FIXED: Get or create user middleware with userinfo call
+// FIXED: Improved role assignment logic
+function determineUserRole(userProfile, existingUser = null) {
+  // Priority order for role assignment:
+  // 1. Auth0 custom claim
+  // 2. Auth0 app_metadata
+  // 3. Existing user role (if user exists)
+  // 4. Default to 'student'
+  
+  const auth0Role = userProfile['https://mathshelp25.com/role'] || 
+                   userProfile.app_metadata?.role;
+  
+  if (auth0Role && ['student', 'teacher', 'admin'].includes(auth0Role)) {
+    console.log('📋 Using role from Auth0 metadata:', auth0Role);
+    return auth0Role;
+  }
+  
+  if (existingUser && existingUser.role) {
+    console.log('📋 Using existing user role:', existingUser.role);
+    return existingUser.role;
+  }
+  
+  console.log('📋 Using default role: student');
+  return 'student';
+}
+
+// FIXED: Get or create user middleware with improved role handling
 async function getOrCreateUser(req, res, next) {
   console.log('\n🔍 getOrCreateUser called');
   
@@ -152,7 +177,6 @@ async function getOrCreateUser(req, res, next) {
     if (!user) {
       console.log('👤 Creating new user...');
       
-      // Use data from userinfo endpoint
       const email = userProfile.email;
       const name = userProfile.name || userProfile.nickname || email?.split('@')[0] || 'MathsHelp25 User';
       const picture = userProfile.picture || '';
@@ -166,13 +190,16 @@ async function getOrCreateUser(req, res, next) {
         });
       }
 
+      // FIXED: Use improved role determination
+      const role = determineUserRole(userProfile);
+
       // Create new user
       user = new User({
         auth0Id,
         email,
         name,
         profileImage: picture,
-        role: 'teacher', // Default role - can be changed later
+        role: role, // FIXED: Use determined role instead of hardcoded 'teacher'
         lastLoginAt: new Date()
       });
       
@@ -180,6 +207,13 @@ async function getOrCreateUser(req, res, next) {
       console.log('✅ Created new user:', email, 'with role:', user.role);
     } else {
       console.log('✅ Found existing user:', userProfile.email, 'role:', user.role);
+      
+      // FIXED: Check if role should be updated from Auth0
+      const newRole = determineUserRole(userProfile, user);
+      if (newRole !== user.role) {
+        console.log(`📋 Updating user role from ${user.role} to ${newRole}`);
+        user.role = newRole;
+      }
       
       // Update user profile with latest info from Auth0
       if (userProfile.email && user.email !== userProfile.email) {
@@ -198,7 +232,7 @@ async function getOrCreateUser(req, res, next) {
     }
 
     req.currentUser = user;
-    console.log('✅ User attached to request');
+    console.log('✅ User attached to request with role:', user.role);
     next();
   } catch (error) {
     console.error('❌ Error in getOrCreateUser:', error);

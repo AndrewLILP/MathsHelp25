@@ -214,12 +214,13 @@ export const apiService = {
   deleteActivity: (activityId) => api.delete(`/activities/${activityId}`),
   rateActivity: (activityId, rating) => api.post(`/activities/${activityId}/rate`, { rating }),
 
-  // User endpoints
-  updateUserRole: (role) => api.post('/user/role', { role }),
-  getUserProfile: () => api.get('/user/profile'),
+  // User endpoints  
+updateUserRole: (role) => api.put('/auth/role', { role }),
+getUserProfile: () => api.get('/auth/me'),
+getUserStats: () => api.get('/auth/stats'),
 
-  // Server health
-  healthCheck: () => api.get('../'),
+// Server health
+healthCheck: () => api.get('../'),
 };
 
 export default apiService;

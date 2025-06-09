@@ -1,116 +1,137 @@
-// File: 01frontend/src/components/RoleSelection.js
-import React, { useState } from 'react';
-import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
+// File: 01frontend/src/hooks/useUserRole.js - FIXED VERSION
+// Removed localStorage dependency, using Auth0 as single source of truth
+
+import { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { FaChalkboardTeacher, FaUserGraduate, FaUserCog } from 'react-icons/fa';
 
-const RoleSelection = ({ onRoleSelected }) => {
-  const [selectedRole, setSelectedRole] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { user } = useAuth0();
-
-  const roles = [
-    {
-      value: 'teacher',
-      title: 'Teacher',
-      description: 'Create, share, and manage educational resources',
-      icon: <FaChalkboardTeacher size={40} />
-    },
-    {
-      value: 'student',
-      title: 'Student',
-      description: 'Access and rate educational materials',
-      icon: <FaUserGraduate size={40} />
-    },
-    {
-      value: 'admin',
-      title: 'Administrator',
-      description: 'Manage users and oversee platform content',
-      icon: <FaUserCog size={40} />
+export const useUserRole = () => {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  const [userRole, setUserRole] = useState(null);
+  const [isRoleLoading, setIsRoleLoading] = useState(true);
+  
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      determineUserRole();
+    } else {
+      setUserRole(null);
+      setIsRoleLoading(false);
     }
-  ];
+  }, [user, isAuthenticated]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!selectedRole) return;
-
-    setIsSubmitting(true);
+  const determineUserRole = () => {
+    console.log('🔍 Determining user role from Auth0...');
     
     try {
-      // Store role locally
-      localStorage.setItem(`userRole_${user.sub}`, selectedRole);
+      // FIXED: Use Auth0 as single source of truth
+      // Priority order:
+      // 1. Custom claim in JWT
+      // 2. app_metadata
+      // 3. Default to 'student'
       
-      // Call the parent component's callback
-      onRoleSelected(selectedRole);
+      const auth0Role = user['https://mathshelp25.com/role'] || 
+                       user.app_metadata?.role;
       
-      console.log(`Role selected for ${user.email}: ${selectedRole}`);
+      if (auth0Role && ['student', 'teacher', 'admin'].includes(auth0Role)) {
+        console.log('📋 Found role in Auth0 metadata:', auth0Role);
+        setUserRole(auth0Role);
+      } else {
+        console.log('📋 No role found in Auth0, defaulting to student');
+        setUserRole('student');
+      }
     } catch (error) {
-      console.error('Error setting user role:', error);
+      console.error('❌ Error determining user role:', error);
+      setUserRole('student'); // Safe default
     } finally {
-      setIsSubmitting(false);
+      setIsRoleLoading(false);
     }
   };
 
-  return (
-    <Container className="mt-5">
-      <Row className="justify-content-center">
-        <Col md={10} lg={8}>
-          <Card className="shadow">
-            <Card.Header className="bg-primary text-white text-center py-4">
-              <h2 className="mb-0">Welcome to MathsHelp25!</h2>
-              <p className="mb-0 mt-2">Please select your role to get started</p>
-            </Card.Header>
-            <Card.Body className="p-4">
-              <Form onSubmit={handleSubmit}>
-                <Row>
-                  {roles.map((role) => (
-                    <Col md={4} key={role.value} className="mb-3">
-                      <Card 
-                        className={`h-100 cursor-pointer border-2 ${
-                          selectedRole === role.value ? 'border-primary bg-light' : 'border-light'
-                        }`}
-                        style={{ cursor: 'pointer', transition: 'all 0.3s ease' }}
-                        onClick={() => setSelectedRole(role.value)}
-                      >
-                        <Card.Body className="text-center p-4">
-                          <div className="mb-3 text-primary">
-                            {role.icon}
-                          </div>
-                          <h5 className="mb-2">{role.title}</h5>
-                          <p className="text-muted small mb-3">{role.description}</p>
-                          <Form.Check
-                            type="radio"
-                            id={role.value}
-                            name="userRole"
-                            value={role.value}
-                            checked={selectedRole === role.value}
-                            onChange={(e) => setSelectedRole(e.target.value)}
-                            className="d-flex justify-content-center"
-                          />
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                  ))}
-                </Row>
-                
-                <div className="text-center mt-4">
-                  <Button 
-                    type="submit" 
-                    variant="primary" 
-                    size="lg"
-                    disabled={!selectedRole || isSubmitting}
-                    style={{ minWidth: '200px' }}
-                  >
-                    {isSubmitting ? 'Setting up your account...' : 'Continue to MathsHelp25'}
-                  </Button>
-                </div>
-              </Form>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
-  );
-};
+  // Helper functions for role-based permissions
+  const hasRole = (role) => {
+    return userRole === role;
+  };
 
-export default RoleSelection;
+  const hasAnyRole = (roles) => {
+    return roles.includes(userRole);
+  };
+
+  const canCreate = () => {
+    return hasAnyRole(['teacher', 'admin']);
+  };
+
+  const canManage = () => {
+    return hasRole('admin');
+  };
+
+  const canRate = () => {
+    return hasAnyRole(['teacher', 'student', 'admin']);
+  };
+
+  const canViewAll = () => {
+    return hasAnyRole(['teacher', 'student', 'admin']);
+  };
+
+  // ADDED: More granular permissions
+  const canCreateActivities = () => {
+    return hasAnyRole(['teacher', 'admin']);
+  };
+
+  const canCreateTopics = () => {
+    return hasRole('admin');
+  };
+
+  const canManageUsers = () => {
+    return hasRole('admin');
+  };
+
+  const canModerateContent = () => {
+    return hasRole('admin');
+  };
+
+  const canEditOthersContent = () => {
+    return hasRole('admin');
+  };
+
+  // FIXED: Manual role update function for role selection
+  const updateUserRole = (newRole) => {
+    console.log('📋 Manually updating user role to:', newRole);
+    
+    if (['student', 'teacher', 'admin'].includes(newRole)) {
+      setUserRole(newRole);
+      
+      // TODO: Call backend API to update role in database
+      // This should trigger an Auth0 metadata update
+      console.log('⚠️ TODO: Update role in backend and Auth0 metadata');
+    } else {
+      console.error('❌ Invalid role:', newRole);
+    }
+  };
+
+  return {
+    userRole,
+    isRoleLoading: isRoleLoading || isLoading,
+    
+    // Role checking functions
+    hasRole,
+    hasAnyRole,
+    
+    // Permission functions
+    canCreate,
+    canManage,
+    canRate,
+    canViewAll,
+    canCreateActivities,
+    canCreateTopics,
+    canManageUsers,
+    canModerateContent,
+    canEditOthersContent,
+    
+    // Role boolean helpers
+    isTeacher: hasRole('teacher'),
+    isStudent: hasRole('student'),
+    isAdmin: hasRole('admin'),
+    
+    // Role management
+    setUserRole: updateUserRole // For manual updates (role selection)
+  };
+};

@@ -1,5 +1,5 @@
-
-// File: 01backend/models/User.js
+// File: 01backend/models/User.js - FIXED VERSION
+// Added 'student' role and changed default
 
 const mongoose = require('mongoose');
 
@@ -32,14 +32,14 @@ const userSchema = new mongoose.Schema({
     default: ''
   },
   
-  // Role-based access
+  // FIXED: Role-based access with student added and proper default
   role: {
     type: String,
-    enum: ['teacher', 'department_head', 'admin'],
-    default: 'teacher'
+    enum: ['student', 'teacher', 'department_head', 'admin'], // Added 'student'
+    default: 'student' // CHANGED: Most users should start as students
   },
   
-  // Teaching specialties within mathematics
+  // Teaching specialties within mathematics (only for teachers)
   mathsSpecialties: [{
     type: String,
     enum: [
@@ -55,7 +55,7 @@ const userSchema = new mongoose.Schema({
     ]
   }],
   
-  // Year groups they teach
+  // Year groups they teach (only for teachers)
   yearGroups: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'YearGroup'
@@ -102,5 +102,15 @@ const userSchema = new mongoose.Schema({
 userSchema.index({ auth0Id: 1 });
 userSchema.index({ email: 1 });
 userSchema.index({ role: 1 });
+
+// ADDED: Middleware to clean up role-specific fields
+userSchema.pre('save', function(next) {
+  // If user is not a teacher, clear teaching-specific fields
+  if (this.role === 'student') {
+    this.mathsSpecialties = [];
+    this.yearGroups = [];
+  }
+  next();
+});
 
 module.exports = mongoose.model('User', userSchema);
