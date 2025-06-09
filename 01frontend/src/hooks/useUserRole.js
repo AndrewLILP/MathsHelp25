@@ -1,20 +1,22 @@
 // File: 01frontend/src/hooks/useUserRole.js - FIXED VERSION
-// Removed localStorage dependency, using Auth0 as single source of truth
+// Fixed: Prevents useEffect from overriding manual role updates
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
 export const useUserRole = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [userRole, setUserRole] = useState(null);
   const [isRoleLoading, setIsRoleLoading] = useState(true);
+  const manuallyUpdated = useRef(false); // Track manual updates
   
   useEffect(() => {
-    if (isAuthenticated && user) {
+    if (isAuthenticated && user && !manuallyUpdated.current) {
       determineUserRole();
-    } else {
+    } else if (!isAuthenticated) {
       setUserRole(null);
       setIsRoleLoading(false);
+      manuallyUpdated.current = false; // Reset on logout
     }
   }, [user, isAuthenticated]);
 
@@ -97,6 +99,7 @@ export const useUserRole = () => {
     console.log('📋 Manually updating user role to:', newRole);
     
     if (['student', 'teacher', 'admin'].includes(newRole)) {
+      manuallyUpdated.current = true; // Prevent useEffect override
       setUserRole(newRole);
       
       // TODO: Call backend API to update role in database

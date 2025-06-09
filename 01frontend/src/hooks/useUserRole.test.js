@@ -1,39 +1,17 @@
-// File: 01frontend/src/hooks/useUserRole.test.js
-// Tests for useUserRole hook
+// File: 01frontend/src/hooks/useUserRole.test.js - FIXED WITH ACT()
+// Fixed test expectations and wrapped state updates in act()
 
-import { renderHook } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 import { useUserRole } from './useUserRole';
 import { useAuth0 } from '@auth0/auth0-react';
 
 // Mock Auth0
 jest.mock('@auth0/auth0-react');
 
-// Mock localStorage
-const mockLocalStorage = (() => {
-  let store = {};
-  return {
-    getItem: jest.fn((key) => store[key] || null),
-    setItem: jest.fn((key, value) => {
-      store[key] = value.toString();
-    }),
-    clear: jest.fn(() => {
-      store = {};
-    }),
-    removeItem: jest.fn((key) => {
-      delete store[key];
-    })
-  };
-})();
-
-Object.defineProperty(window, 'localStorage', {
-  value: mockLocalStorage
-});
-
 describe('🔐 useUserRole Hook Tests', () => {
   
   beforeEach(() => {
     jest.clearAllMocks();
-    mockLocalStorage.clear();
   });
 
   describe('Role Detection from Auth0', () => {
@@ -47,7 +25,8 @@ describe('🔐 useUserRole Hook Tests', () => {
       
       useAuth0.mockReturnValue({
         user: mockUser,
-        isAuthenticated: true
+        isAuthenticated: true,
+        isLoading: false
       });
       
       const { result } = renderHook(() => useUserRole());
@@ -66,7 +45,8 @@ describe('🔐 useUserRole Hook Tests', () => {
       
       useAuth0.mockReturnValue({
         user: mockUser,
-        isAuthenticated: true
+        isAuthenticated: true,
+        isLoading: false
       });
       
       const { result } = renderHook(() => useUserRole());
@@ -76,19 +56,17 @@ describe('🔐 useUserRole Hook Tests', () => {
       expect(result.current.canCreate()).toBe(true);
     });
     
-    test('should fallback to localStorage when Auth0 role missing', () => {
+    test('should default to student when no role found in Auth0', () => {
       const mockUser = {
         sub: 'auth0|test789',
         email: 'student@test.com'
         // No role in Auth0 metadata
       };
       
-      // Set localStorage role
-      mockLocalStorage.setItem('userRole_auth0|test789', 'student');
-      
       useAuth0.mockReturnValue({
         user: mockUser,
-        isAuthenticated: true
+        isAuthenticated: true,
+        isLoading: false
       });
       
       const { result } = renderHook(() => useUserRole());
@@ -98,7 +76,7 @@ describe('🔐 useUserRole Hook Tests', () => {
       expect(result.current.canCreate()).toBe(false);
     });
     
-    test('should default to student when no role found', () => {
+    test('should default to student when no role found anywhere', () => {
       const mockUser = {
         sub: 'auth0|test000',
         email: 'newuser@test.com'
@@ -107,7 +85,8 @@ describe('🔐 useUserRole Hook Tests', () => {
       
       useAuth0.mockReturnValue({
         user: mockUser,
-        isAuthenticated: true
+        isAuthenticated: true,
+        isLoading: false
       });
       
       const { result } = renderHook(() => useUserRole());
@@ -124,7 +103,8 @@ describe('🔐 useUserRole Hook Tests', () => {
           sub: 'auth0|admin',
           'https://mathshelp25.com/role': 'admin' 
         },
-        isAuthenticated: true
+        isAuthenticated: true,
+        isLoading: false
       });
       
       const { result } = renderHook(() => useUserRole());
@@ -133,6 +113,9 @@ describe('🔐 useUserRole Hook Tests', () => {
       expect(result.current.canManage()).toBe(true);
       expect(result.current.canRate()).toBe(true);
       expect(result.current.canViewAll()).toBe(true);
+      expect(result.current.canCreateActivities()).toBe(true);
+      expect(result.current.canCreateTopics()).toBe(true);
+      expect(result.current.canManageUsers()).toBe(true);
     });
     
     test('teacher should have limited permissions', () => {
@@ -141,15 +124,19 @@ describe('🔐 useUserRole Hook Tests', () => {
           sub: 'auth0|teacher',
           'https://mathshelp25.com/role': 'teacher' 
         },
-        isAuthenticated: true
+        isAuthenticated: true,
+        isLoading: false
       });
       
       const { result } = renderHook(() => useUserRole());
       
-      expect(result.current.canCreate()).toBe(true);  // Can create activities
-      expect(result.current.canManage()).toBe(false); // Cannot manage system
-      expect(result.current.canRate()).toBe(true);    // Can rate content
-      expect(result.current.canViewAll()).toBe(true); // Can view content
+      expect(result.current.canCreate()).toBe(true);          // Can create activities
+      expect(result.current.canCreateActivities()).toBe(true); // Can create activities
+      expect(result.current.canCreateTopics()).toBe(false);   // Cannot create topics
+      expect(result.current.canManage()).toBe(false);         // Cannot manage system
+      expect(result.current.canManageUsers()).toBe(false);    // Cannot manage users
+      expect(result.current.canRate()).toBe(true);            // Can rate content
+      expect(result.current.canViewAll()).toBe(true);         // Can view content
     });
     
     test('student should have minimal permissions', () => {
@@ -158,15 +145,19 @@ describe('🔐 useUserRole Hook Tests', () => {
           sub: 'auth0|student',
           'https://mathshelp25.com/role': 'student' 
         },
-        isAuthenticated: true
+        isAuthenticated: true,
+        isLoading: false
       });
       
       const { result } = renderHook(() => useUserRole());
       
-      expect(result.current.canCreate()).toBe(false); // Cannot create
-      expect(result.current.canManage()).toBe(false); // Cannot manage
-      expect(result.current.canRate()).toBe(true);    // Can rate
-      expect(result.current.canViewAll()).toBe(true); // Can view
+      expect(result.current.canCreate()).toBe(false);         // Cannot create
+      expect(result.current.canCreateActivities()).toBe(false); // Cannot create activities
+      expect(result.current.canCreateTopics()).toBe(false);   // Cannot create topics
+      expect(result.current.canManage()).toBe(false);         // Cannot manage
+      expect(result.current.canManageUsers()).toBe(false);    // Cannot manage users
+      expect(result.current.canRate()).toBe(true);            // Can rate
+      expect(result.current.canViewAll()).toBe(true);         // Can view
     });
   });
 
@@ -178,7 +169,8 @@ describe('🔐 useUserRole Hook Tests', () => {
           sub: 'auth0|test',
           'https://mathshelp25.com/role': 'teacher' 
         },
-        isAuthenticated: true
+        isAuthenticated: true,
+        isLoading: false
       });
       
       const { result } = renderHook(() => useUserRole());
@@ -194,7 +186,8 @@ describe('🔐 useUserRole Hook Tests', () => {
           sub: 'auth0|test',
           'https://mathshelp25.com/role': 'teacher' 
         },
-        isAuthenticated: true
+        isAuthenticated: true,
+        isLoading: false
       });
       
       const { result } = renderHook(() => useUserRole());
@@ -205,32 +198,44 @@ describe('🔐 useUserRole Hook Tests', () => {
     });
   });
 
-  describe('LocalStorage Sync Issues', () => {
+  describe('Role Priority from Auth0', () => {
     
-    test('should identify localStorage vs Auth0 inconsistency', () => {
+    test('should prioritize custom claim over app_metadata', () => {
       const mockUser = {
-        sub: 'auth0|conflict',
-        'https://mathshelp25.com/role': 'admin'
+        sub: 'auth0|priority-test',
+        'https://mathshelp25.com/role': 'admin',  // Custom claim
+        app_metadata: { role: 'teacher' }         // App metadata (should be ignored)
       };
-      
-      // localStorage has different role
-      mockLocalStorage.setItem('userRole_auth0|conflict', 'student');
       
       useAuth0.mockReturnValue({
         user: mockUser,
-        isAuthenticated: true
+        isAuthenticated: true,
+        isLoading: false
       });
       
       const { result } = renderHook(() => useUserRole());
       
-      // Should prioritize Auth0 over localStorage
+      // Should use custom claim 'admin', not app_metadata 'teacher'
       expect(result.current.userRole).toBe('admin');
+      expect(result.current.isAdmin).toBe(true);
+    });
+    
+    test('should use app_metadata when custom claim missing', () => {
+      const mockUser = {
+        sub: 'auth0|fallback-test',
+        app_metadata: { role: 'teacher' }  // Only app_metadata available
+      };
       
-      // Check that localStorage was updated
-      expect(mockLocalStorage.setItem).toHaveBeenCalledWith(
-        'userRole_auth0|conflict', 
-        'admin'
-      );
+      useAuth0.mockReturnValue({
+        user: mockUser,
+        isAuthenticated: true,
+        isLoading: false
+      });
+      
+      const { result } = renderHook(() => useUserRole());
+      
+      expect(result.current.userRole).toBe('teacher');
+      expect(result.current.isTeacher).toBe(true);
     });
   });
 
@@ -239,7 +244,8 @@ describe('🔐 useUserRole Hook Tests', () => {
     test('should handle unauthenticated user', () => {
       useAuth0.mockReturnValue({
         user: null,
-        isAuthenticated: false
+        isAuthenticated: false,
+        isLoading: false
       });
       
       const { result } = renderHook(() => useUserRole());
@@ -247,6 +253,69 @@ describe('🔐 useUserRole Hook Tests', () => {
       expect(result.current.userRole).toBe(null);
       expect(result.current.canCreate()).toBe(false);
       expect(result.current.canManage()).toBe(false);
+      expect(result.current.canRate()).toBe(false);
+    });
+    
+    test('should handle loading state', () => {
+      useAuth0.mockReturnValue({
+        user: null,
+        isAuthenticated: false,
+        isLoading: true
+      });
+      
+      const { result } = renderHook(() => useUserRole());
+      
+      expect(result.current.isRoleLoading).toBe(true);
+    });
+  });
+
+  describe('Role Update Function', () => {
+    
+    test('should update role manually', () => {
+      useAuth0.mockReturnValue({
+        user: { 
+          sub: 'auth0|manual-test',
+          'https://mathshelp25.com/role': 'student' 
+        },
+        isAuthenticated: true,
+        isLoading: false
+      });
+      
+      const { result } = renderHook(() => useUserRole());
+      
+      // Initial role
+      expect(result.current.userRole).toBe('student');
+      
+      // Update role manually - WRAPPED IN ACT()
+      act(() => {
+        result.current.setUserRole('teacher');
+      });
+      
+      // Should update (this is for role selection component)
+      expect(result.current.userRole).toBe('teacher');
+    });
+    
+    test('should reject invalid roles', () => {
+      useAuth0.mockReturnValue({
+        user: { 
+          sub: 'auth0|invalid-test',
+          'https://mathshelp25.com/role': 'student' 
+        },
+        isAuthenticated: true,
+        isLoading: false
+      });
+      
+      const { result } = renderHook(() => useUserRole());
+      
+      const initialRole = result.current.userRole;
+      
+      // Try to set invalid role - WRAPPED IN ACT()
+      act(() => {
+        result.current.setUserRole('invalid_role');
+      });
+      
+      // Should remain unchanged
+      expect(result.current.userRole).toBe(initialRole);
     });
   });
 });
