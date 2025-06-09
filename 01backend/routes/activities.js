@@ -1,9 +1,8 @@
-// 🔧 BACKEND FILE: 01backend/routes/activities.js
-// ⚠️ CHANGE REQUIRED: Update line 3 to import from 'auth' instead of 'auth'
+// File: 01backend/routes/activities.js - PERMISSION FIXED
+// Added missing requireRole middleware to POST route
 
 const express = require('express');
 const router = express.Router();
-// 🚨 CHANGE THIS LINE - Replace 'auth' with 'auth':
 const { optionalAuth, getOptionalUser, checkJwt, getOrCreateUser, requireRole } = require('../middleware/auth');
 const Activity = require('../models/Activity');
 const Topic = require('../models/Topic');
@@ -204,7 +203,8 @@ router.get('/:id', optionalAuth, getOptionalUser, async (req, res) => {
 // @route   POST /api/activities
 // @desc    Create new activity
 // @access  Private (Teachers and above)
-router.post('/', checkJwt, getOrCreateUser, async (req, res) => {
+// FIXED: Added requireRole middleware to enforce permissions
+router.post('/', checkJwt, getOrCreateUser, requireRole(['teacher', 'admin']), async (req, res) => {
   try {
     const { 
       title, 
@@ -354,7 +354,7 @@ router.put('/:id', checkJwt, getOrCreateUser, async (req, res) => {
 
 // @route   POST /api/activities/:id/rate
 // @desc    Rate an activity
-// @access  Private
+// @access  Private (All authenticated users can rate)
 router.post('/:id/rate', checkJwt, getOrCreateUser, async (req, res) => {
   try {
     const { value, comment } = req.body;

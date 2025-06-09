@@ -145,8 +145,9 @@ router.get('/:id', optionalAuth, getOptionalUser, async (req, res) => {
 // @route   POST /api/topics
 // @desc    Create new topic
 // @access  Private (Teachers and above)
-router.post('/', checkJwt, getOrCreateUser, async (req, res) => {
-  try {
+router.post('/', checkJwt, getOrCreateUser, requireRole(['admin', 'department_head']), async (req, res) => {
+  //  
+   try {
     const { 
       name, 
       description, 
