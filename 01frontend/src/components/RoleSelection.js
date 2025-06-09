@@ -1,19 +1,37 @@
-// File: 01frontend/src/components/RoleSelection.js - FIXED VERSION
-// Removed localStorage, added backend API call
-
-import React, { useState } from 'react';
+// File: 01frontend/src/components/RoleSelection.js - FIXED AUTH TOKEN
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Form, Alert } from 'react-bootstrap';
 import { useUserRole } from '../hooks/useUserRole';
 import { useAuth0 } from '@auth0/auth0-react';
-import apiService from '../services/api';
+import apiService, { setAuth0TokenGetter } from '../services/api';
 
 const RoleSelection = ({ onRoleSelected }) => {
   const { setUserRole, userRole } = useUserRole();
-  const { user } = useAuth0();
+  const { user, getAccessTokenSilently } = useAuth0();
   const [selectedRole, setSelectedRole] = useState(userRole || '');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  // Set up Auth0 token getter for API calls
+  useEffect(() => {
+    const tokenGetter = async () => {
+      try {
+        console.log('🔑 Getting Auth0 token...');
+        const token = await getAccessTokenSilently({
+          audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+          scope: 'openid profile email'
+        });
+        console.log('✅ Auth0 token obtained');
+        return token;
+      } catch (error) {
+        console.error('❌ Failed to get Auth0 token:', error);
+        throw error;
+      }
+    };
+
+    setAuth0TokenGetter(tokenGetter);
+  }, [getAccessTokenSilently]);
 
   const roleDescriptions = {
     student: {
@@ -79,11 +97,21 @@ const RoleSelection = ({ onRoleSelected }) => {
       
     } catch (error) {
       console.error('❌ Error updating role:', error);
-      setError(
-        error.response?.data?.message || 
-        error.message || 
-        'Failed to update role. Please try again.'
-      );
+      
+      // Better error handling
+      let errorMessage = 'Failed to update role. Please try again.';
+      
+      if (error.response?.status === 401) {
+        errorMessage = 'Authentication failed. Please refresh the page and try again.';
+      } else if (error.response?.status === 403) {
+        errorMessage = 'Access denied. Please check your permissions.';
+      } else if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }

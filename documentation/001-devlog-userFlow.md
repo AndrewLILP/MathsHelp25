@@ -6,7 +6,9 @@ This development log documents the current state of the MathsHelp25 mathematics 
 
 Visit: https://mathshelp25-frontend.onrender.com/
 
-
+Note: documentation/002-devlog-userPermissions.md
+contains details of a feature branch ready to be pushed to main that shows improved permissions for users after testing 
+ 
 ---
 
 ## Platform Overview

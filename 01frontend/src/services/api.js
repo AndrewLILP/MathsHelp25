@@ -1,4 +1,4 @@
-// File: 01frontend/src/services/api.js
+// File: 01frontend/src/services/api.js - FIXED AUTH TOKEN
 import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -12,20 +12,32 @@ const api = axios.create({
   },
 });
 
+// Store the Auth0 token getter function
+let getAuth0Token = null;
+
+// Function to set the token getter (called by components with Auth0 access)
+export const setAuth0TokenGetter = (tokenGetter) => {
+  getAuth0Token = tokenGetter;
+};
+
 // Request interceptor for adding auth token
 api.interceptors.request.use(
   async (config) => {
     // Get Auth0 token if available
     try {
-      // This will be set by components that have access to Auth0
-      if (window.getAuth0Token) {
-        const token = await window.getAuth0Token();
+      if (getAuth0Token) {
+        const token = await getAuth0Token();
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
+          console.log('✅ Auth token added to request');
+        } else {
+          console.log('⚠️ No auth token available');
         }
+      } else {
+        console.log('⚠️ Auth token getter not set');
       }
     } catch (error) {
-      console.log('No auth token available');
+      console.log('❌ Error getting auth token:', error.message);
     }
     return config;
   },
@@ -214,13 +226,21 @@ export const apiService = {
   deleteActivity: (activityId) => api.delete(`/activities/${activityId}`),
   rateActivity: (activityId, rating) => api.post(`/activities/${activityId}/rate`, { rating }),
 
-  // User endpoints  
-updateUserRole: (role) => api.put('/auth/role', { role }),
-getUserProfile: () => api.get('/auth/me'),
-getUserStats: () => api.get('/auth/stats'),
+  // User endpoints - FIXED: Better error handling  
+  updateUserRole: async (role) => {
+    try {
+      const response = await api.put('/auth/role', { role });
+      return response;
+    } catch (error) {
+      console.error('❌ Role update failed:', error.response?.data || error.message);
+      throw error;
+    }
+  },
+  getUserProfile: () => api.get('/auth/me'),
+  getUserStats: () => api.get('/auth/stats'),
 
-// Server health
-healthCheck: () => api.get('../'),
+  // Server health
+  healthCheck: () => api.get('../'),
 };
 
 export default apiService;

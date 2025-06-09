@@ -1,5 +1,5 @@
-// File: 01frontend/src/App.js - ORIGINAL COMPLETE VERSION
-import React from 'react';
+// File: 01frontend/src/App.js - UPDATED WITH AUTH TOKEN SETUP
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -12,6 +12,7 @@ import SubjectDetailPage from './pages/SubjectDetailPage';
 import TopicDetailPage from './pages/TopicDetailPage';
 import ActivitiesPage from './pages/ActivitiesPage';
 import CreateActivityPage from './pages/CreateActivityPage';
+import { setAuth0TokenGetter } from './services/api';
 
 // Import Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,7 +20,30 @@ import './styles/colors.css';
 import './App.css';
 
 function AppContent() {
-  const { isLoading } = useAuth0();
+  const { isLoading, getAccessTokenSilently, isAuthenticated } = useAuth0();
+
+  // Set up global Auth0 token getter for API calls
+  useEffect(() => {
+    if (isAuthenticated) {
+      const tokenGetter = async () => {
+        try {
+          console.log('🔑 Getting Auth0 token globally...');
+          const token = await getAccessTokenSilently({
+            audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+            scope: 'openid profile email'
+          });
+          console.log('✅ Global Auth0 token obtained');
+          return token;
+        } catch (error) {
+          console.error('❌ Failed to get global Auth0 token:', error);
+          throw error;
+        }
+      };
+
+      setAuth0TokenGetter(tokenGetter);
+      console.log('🔧 Global Auth0 token getter configured');
+    }
+  }, [isAuthenticated, getAccessTokenSilently]);
 
   if (isLoading) {
     return (

@@ -1,7 +1,7 @@
-// File: 01frontend/src/hooks/useUserRole.js - FIXED VERSION
-// Fixed: Prevents useEffect from overriding manual role updates
+// File: 01frontend/src/hooks/useUserRole.js - ESLINT FIXED
+// Fixed: Moved determineUserRole inside useEffect to fix dependency warning
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
 export const useUserRole = () => {
@@ -11,6 +11,34 @@ export const useUserRole = () => {
   const manuallyUpdated = useRef(false); // Track manual updates
   
   useEffect(() => {
+    const determineUserRole = () => {
+      console.log('🔍 Determining user role from Auth0...');
+      
+      try {
+        // FIXED: Use Auth0 as single source of truth
+        // Priority order:
+        // 1. Custom claim in JWT
+        // 2. app_metadata
+        // 3. Default to 'student'
+        
+        const auth0Role = user['https://mathshelp25.com/role'] || 
+                         user.app_metadata?.role;
+        
+        if (auth0Role && ['student', 'teacher', 'admin'].includes(auth0Role)) {
+          console.log('📋 Found role in Auth0 metadata:', auth0Role);
+          setUserRole(auth0Role);
+        } else {
+          console.log('📋 No role found in Auth0, defaulting to student');
+          setUserRole('student');
+        }
+      } catch (error) {
+        console.error('❌ Error determining user role:', error);
+        setUserRole('student'); // Safe default
+      } finally {
+        setIsRoleLoading(false);
+      }
+    };
+
     if (isAuthenticated && user && !manuallyUpdated.current) {
       determineUserRole();
     } else if (!isAuthenticated) {
@@ -18,84 +46,56 @@ export const useUserRole = () => {
       setIsRoleLoading(false);
       manuallyUpdated.current = false; // Reset on logout
     }
-  }, [user, isAuthenticated]);
-
-  const determineUserRole = () => {
-    console.log('🔍 Determining user role from Auth0...');
-    
-    try {
-      // FIXED: Use Auth0 as single source of truth
-      // Priority order:
-      // 1. Custom claim in JWT
-      // 2. app_metadata
-      // 3. Default to 'student'
-      
-      const auth0Role = user['https://mathshelp25.com/role'] || 
-                       user.app_metadata?.role;
-      
-      if (auth0Role && ['student', 'teacher', 'admin'].includes(auth0Role)) {
-        console.log('📋 Found role in Auth0 metadata:', auth0Role);
-        setUserRole(auth0Role);
-      } else {
-        console.log('📋 No role found in Auth0, defaulting to student');
-        setUserRole('student');
-      }
-    } catch (error) {
-      console.error('❌ Error determining user role:', error);
-      setUserRole('student'); // Safe default
-    } finally {
-      setIsRoleLoading(false);
-    }
-  };
+  }, [user, isAuthenticated]); // Fixed: No need to include determineUserRole since it's inside useEffect
 
   // Helper functions for role-based permissions
-  const hasRole = (role) => {
+  const hasRole = useCallback((role) => {
     return userRole === role;
-  };
+  }, [userRole]);
 
-  const hasAnyRole = (roles) => {
+  const hasAnyRole = useCallback((roles) => {
     return roles.includes(userRole);
-  };
+  }, [userRole]);
 
-  const canCreate = () => {
+  const canCreate = useCallback(() => {
     return hasAnyRole(['teacher', 'admin']);
-  };
+  }, [hasAnyRole]);
 
-  const canManage = () => {
+  const canManage = useCallback(() => {
     return hasRole('admin');
-  };
+  }, [hasRole]);
 
-  const canRate = () => {
+  const canRate = useCallback(() => {
     return hasAnyRole(['teacher', 'student', 'admin']);
-  };
+  }, [hasAnyRole]);
 
-  const canViewAll = () => {
+  const canViewAll = useCallback(() => {
     return hasAnyRole(['teacher', 'student', 'admin']);
-  };
+  }, [hasAnyRole]);
 
   // ADDED: More granular permissions
-  const canCreateActivities = () => {
+  const canCreateActivities = useCallback(() => {
     return hasAnyRole(['teacher', 'admin']);
-  };
+  }, [hasAnyRole]);
 
-  const canCreateTopics = () => {
+  const canCreateTopics = useCallback(() => {
     return hasRole('admin');
-  };
+  }, [hasRole]);
 
-  const canManageUsers = () => {
+  const canManageUsers = useCallback(() => {
     return hasRole('admin');
-  };
+  }, [hasRole]);
 
-  const canModerateContent = () => {
+  const canModerateContent = useCallback(() => {
     return hasRole('admin');
-  };
+  }, [hasRole]);
 
-  const canEditOthersContent = () => {
+  const canEditOthersContent = useCallback(() => {
     return hasRole('admin');
-  };
+  }, [hasRole]);
 
   // FIXED: Manual role update function for role selection
-  const updateUserRole = (newRole) => {
+  const updateUserRole = useCallback((newRole) => {
     console.log('📋 Manually updating user role to:', newRole);
     
     if (['student', 'teacher', 'admin'].includes(newRole)) {
@@ -108,7 +108,7 @@ export const useUserRole = () => {
     } else {
       console.error('❌ Invalid role:', newRole);
     }
-  };
+  }, []);
 
   return {
     userRole,

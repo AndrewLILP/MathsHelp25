@@ -4,7 +4,7 @@
 **Date:** June 8 2025  
 **Project:** MathsHelp25 - Interactive Mathematics Teaching Resource Platform  
 **Phase:** Testing Infrastructure Development  
-**Status:** Tests Temporarily Removed Due to Complexity  
+**Status:** Tests Temporarily Removed Due to Complexity  - this doc shows better testing - documentation/002-devlog-userPermissions.md
 
 ---
 
