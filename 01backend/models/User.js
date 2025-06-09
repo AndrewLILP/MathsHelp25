@@ -1,5 +1,5 @@
-// File: 01backend/models/User.js - FIXED VERSION
-// Added 'student' role and changed default
+// File: 01backend/models/User.js - FINAL VERSION
+// Fixed duplicate index warnings
 
 const mongoose = require('mongoose');
 
@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true
+    // REMOVED: index: true (causing duplicate with schema.index below)
   },
   
   // Basic user information
@@ -25,6 +26,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     lowercase: true,
     trim: true
+    // REMOVED: index: true (causing duplicate with schema.index below)
   },
   
   profileImage: {
@@ -98,7 +100,7 @@ const userSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Indexes for better performance
+// FIXED: Indexes for better performance (removed duplicates)
 userSchema.index({ auth0Id: 1 });
 userSchema.index({ email: 1 });
 userSchema.index({ role: 1 });

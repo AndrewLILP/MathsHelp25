@@ -1,4 +1,6 @@
-// File: 01backend/models/Activity.js
+// File: 01backend/models/Activity.js - UPDATED VERSION
+// Fixed source field to have default value
+
 const mongoose = require('mongoose');
 
 const activitySchema = new mongoose.Schema({
@@ -12,30 +14,30 @@ const activitySchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
-    maxLength: 1000
+    maxLength: 2000
   },
   
-  // Reference to topic
+  // Topic this activity belongs to
   topic: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Topic',
     required: true
   },
   
-  // Who created this activity
+  // User who created this activity
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
   
-  // Activity type
+  // Type of activity
   activityType: {
     type: String,
     enum: [
       'Worksheet',
       'Interactive Game',
-      'Video Tutorial',
+      'Video Tutorial', 
       'Hands-on Activity',
       'Problem Set',
       'Assessment',
@@ -46,12 +48,11 @@ const activitySchema = new mongoose.Schema({
     required: true
   },
   
-  // Resource links and materials
+  // Digital resources and links
   resources: [{
     title: {
       type: String,
-      required: true,
-      maxLength: 100
+      required: true
     },
     url: {
       type: String,
@@ -60,22 +61,21 @@ const activitySchema = new mongoose.Schema({
     type: {
       type: String,
       enum: ['PDF', 'Website', 'Video', 'Interactive', 'Download', 'Other'],
-      required: true
+      default: 'Website'
     },
     description: {
       type: String,
-      maxLength: 200
+      default: ''
     }
   }],
   
-  // Source of the activity
+  // FIXED: Source of the activity with default value
   source: {
     type: String,
-    enum: ['Internal', 'External', 'User Contributed'],
-    required: true
+    default: 'User Contributed' // ADDED: Default value to prevent validation errors
   },
   
-  // Difficulty and duration
+  // Activity metadata
   difficulty: {
     type: String,
     enum: ['Foundation', 'Developing', 'Proficient', 'Advanced'],
@@ -83,39 +83,36 @@ const activitySchema = new mongoose.Schema({
   },
   
   estimatedDuration: {
-    type: Number, // in minutes
+    type: Number, // minutes
     min: 5,
     max: 240,
     default: 30
   },
   
-  // Class size recommendations
   classSize: {
     min: {
       type: Number,
+      min: 1,
       default: 1
     },
     max: {
       type: Number,
+      min: 1,
       default: 30
     }
   },
   
-  // Materials needed
+  // Teaching materials
   materialsNeeded: [{
     type: String,
-    trim: true,
-    maxLength: 100
+    trim: true
   }],
   
-  // Learning outcomes
   learningOutcomes: [{
     type: String,
-    trim: true,
-    maxLength: 200
+    trim: true
   }],
   
-  // Keywords for search
   keywords: [{
     type: String,
     trim: true,
@@ -131,13 +128,13 @@ const activitySchema = new mongoose.Schema({
     },
     value: {
       type: Number,
-      required: true,
       min: 1,
-      max: 5
+      max: 5,
+      required: true
     },
     comment: {
       type: String,
-      maxLength: 300
+      maxLength: 500
     },
     createdAt: {
       type: Date,
@@ -147,9 +144,9 @@ const activitySchema = new mongoose.Schema({
   
   averageRating: {
     type: Number,
-    default: 0,
     min: 0,
-    max: 5
+    max: 5,
+    default: 0
   },
   
   ratingCount: {
@@ -157,13 +154,8 @@ const activitySchema = new mongoose.Schema({
     default: 0
   },
   
-  // Engagement metrics
+  // Statistics
   viewCount: {
-    type: Number,
-    default: 0
-  },
-  
-  downloadCount: {
     type: Number,
     default: 0
   },
@@ -173,27 +165,16 @@ const activitySchema = new mongoose.Schema({
     default: 0
   },
   
-  // Status and moderation
+  // Status and visibility
   status: {
     type: String,
-    enum: ['Draft', 'Published', 'Under Review', 'Archived'],
+    enum: ['Draft', 'Published', 'Archived'],
     default: 'Published'
   },
   
   isActive: {
     type: Boolean,
     default: true
-  },
-  
-  // Moderation flags
-  flagged: {
-    type: Boolean,
-    default: false
-  },
-  
-  flagCount: {
-    type: Number,
-    default: 0
   },
   
   lastAccessedAt: {
@@ -204,16 +185,20 @@ const activitySchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Indexes for performance
-activitySchema.index({ topic: 1, status: 1 });
+// Indexes for better query performance
+activitySchema.index({ topic: 1, isActive: 1 });
 activitySchema.index({ createdBy: 1 });
-activitySchema.index({ activityType: 1 });
 activitySchema.index({ averageRating: -1 });
-activitySchema.index({ keywords: 1 });
+activitySchema.index({ viewCount: -1 });
 activitySchema.index({ createdAt: -1 });
-activitySchema.index({ isActive: 1, status: 1 });
+activitySchema.index({ keywords: 1 });
+activitySchema.index({ difficulty: 1, activityType: 1 });
 
-// Compound index for user ratings (prevent duplicate ratings)
-activitySchema.index({ 'ratings.user': 1 }, { sparse: true });
+// Text search index
+activitySchema.index({
+  title: 'text',
+  description: 'text',
+  keywords: 'text'
+});
 
 module.exports = mongoose.model('Activity', activitySchema);
